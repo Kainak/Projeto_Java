@@ -7,13 +7,15 @@ import model.dao.DaoFactory;
 import model.dao.DepartmentDao;
 import model.entities.Department;
 
+import static model.dao.DaoFactory.createDepartmentDao;
+
 public class Program2 {
 
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
 		
-		DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
+		DepartmentDao departmentDao = createDepartmentDao();
 
 		System.out.println("=== TEST 1: findById =======");
 		Department dep = departmentDao.findById(1);
