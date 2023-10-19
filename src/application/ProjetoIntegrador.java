@@ -11,20 +11,44 @@ import model.entities.Department;
 import model.entities.Seller;
 import model.dao.impl.produtorDao;
 import model.entities.Produtor;
+import java.util.Scanner;
 
 import static model.dao.DaoFactory.createDepartmentDao;
 
 public class ProjetoIntegrador {
 
+    private static List<Produtor> list;
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        SellerDao sellerDao = DaoFactory.createSellerDao();
         produtorDao produtorDao = DaoFactory.createProdutorDao();
 
-        System.out.println("\n=== TEST 4: seller insert =====");
-        Produtor newProdutor = new Produtor(2,"Juarez");
+        System.out.println("=== TEST 1: produtor findById =====");
+        Produtor findProdutor = produtorDao.findById(2);
+        System.out.println(findProdutor);
+
+
+        // Solicite ao usuário que digite um nome
+        System.out.print("Digite um nome: ");
+        // Leia o nome fornecido pelo usuário
+        String nome = sc.nextLine();
+        // Feche o Scanner
+
+        // Exiba o nome armazenado no variavel e o ID cadastrado no Banco de dados
+        System.out.println("Nome digitado: " + nome);
+        System.out.println("\n=== TEST 4: produtor insert =====");
+
+
+        System.out.println("\n=== TEST 3: produtor findAll =====");
+        list = produtorDao.findAll();
+        for (Produtor obj : list) {
+            System.out.println(obj);
+        }
+
+
+        Produtor newProdutor = new Produtor(6, nome);
         produtorDao.insert(newProdutor);
         System.out.println("Inserted! New id = " + newProdutor.getIDprodutor());
 
@@ -34,12 +58,6 @@ public class ProjetoIntegrador {
 //        System.out.println("Inserted! New id = " + newSeller.getId());
 
 
-
-
-//        System.out.println("=== TEST 1: seller findById =====");
-//        Seller seller = sellerDao.findById(3);
-//        System.out.println(seller);
-//
 //        System.out.println("\n=== TEST 2: seller findByDepartment =====");
 //        Department department = new Department(2, null);
 //        List<Seller> list = sellerDao.findByDepartment(department);

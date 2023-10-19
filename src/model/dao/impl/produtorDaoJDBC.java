@@ -2,18 +2,14 @@ package model.dao.impl;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 //import com.mysql.jdbc.Statement;
 
 import db.DB;
 import db.DbException;
-import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Produtor;
-import model.entities.Seller;
 
 public class produtorDaoJDBC implements produtorDao{
 
@@ -62,4 +58,62 @@ public class produtorDaoJDBC implements produtorDao{
             DB.closeStatement(st);
         }
     }
+
+    @Override
+    public Produtor findById(Integer IDprodutor) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement(
+                    "SELECT * FROM produtor WHERE IDprodutor = ?");
+            st.setInt(1, IDprodutor);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                Produtor obj = new Produtor();
+                obj.setIDprodutor(rs.getInt("IDprodutor"));
+                obj.setNome(rs.getString("nome"));
+                return obj;
+            }
+            return null;
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
+
+    @Override
+    public List<Produtor> findAll() {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement(
+                    "SELECT * FROM produtor ORDER BY Nome");
+            rs = st.executeQuery();
+
+            List<Produtor> list = new ArrayList<>();
+
+            while (rs.next()) {
+                Produtor obj = new Produtor();
+                obj.setIDprodutor(rs.getInt("IDprodutor"));
+                obj.setNome(rs.getString("Nome"));
+                list.add(obj);
+            }
+            return list;
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
+
+
+
+
 }
