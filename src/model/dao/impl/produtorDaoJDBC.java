@@ -8,7 +8,7 @@ import java.util.List;
 
 import db.DB;
 import db.DbException;
-import model.entities.Department;
+import db.DbIntegrityException;
 import model.entities.Produtor;
 
 public class produtorDaoJDBC implements produtorDao{
@@ -26,13 +26,13 @@ public class produtorDaoJDBC implements produtorDao{
         try {
             st = conn.prepareStatement(
                     "INSERT INTO produtor "
-                            + "(IDprodutor, nome) "
+                            + "(nome) "
                             + "VALUES "
-                            + "(?, ?)",
+                            + "(?)",
                     Statement.RETURN_GENERATED_KEYS);
 
-            st.setInt(1, obj.getIDprodutor());
-            st.setString(2, obj.getNome());
+            //st.setInt(1, obj.getIDprodutor());
+            st.setString(1, obj.getNome());
 //            st.setDate(3, new java.sql.Date(obj.getBirthDate().getTime()));
 //            st.setDouble(4, obj.getBaseSalary());
 //            st.setInt(5, obj.getDepartment().getId());
@@ -113,7 +113,46 @@ public class produtorDaoJDBC implements produtorDao{
         }
     }
 
+    @Override
+    public void deleteById(Integer IDprodutor) {
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement(
 
+                    "DELETE FROM produtor WHERE IDprodutor = ?");
+
+            st.setInt(1, IDprodutor);
+
+            st.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new DbIntegrityException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+        }
+    }
+
+
+    @Override
+    public void update(Produtor obj) {
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement(
+                    "UPDATE produtor " +
+                            "SET Nome = ? " +
+                            "WHERE IDprodutor = ?");
+            st.setString(1, obj.getNome());
+            st.setInt(2, obj.getIDprodutor());
+            st.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+        }
+    }
 
 
 }
