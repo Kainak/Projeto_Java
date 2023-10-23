@@ -20,13 +20,13 @@ public class ProjetoIntegrador {
 
         Scanner sc = new Scanner(System.in);
 
-        SellerDao sellerDao = DaoFactory.createSellerDao();
         produtorDao produtorDao = DaoFactory.createProdutorDao();
 
         System.out.println("\n=== TEST 4: seller insert =====");
-        Produtor newProdutor = new Produtor(2,"Juarez");
+        Produtor newProdutor = new Produtor(5, "Juarez", "123.456.789-00");
         produtorDao.insert(newProdutor);
         System.out.println("Inserted! New id = " + newProdutor.getIDprodutor());
+
 
 
 //        Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", new Date(), 4000.0 );

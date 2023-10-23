@@ -30,13 +30,14 @@ public class produtorDaoJDBC implements produtorDao{
         try {
             st = conn.prepareStatement(
                     "INSERT INTO produtor "
-                            + "(IDprodutor, nome) "
+                            + "(IDprodutor, nome, cpf) "
                             + "VALUES "
-                            + "(?, ?)",
+                            + "(?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
 
             st.setInt(1, obj.getIDprodutor());
             st.setString(2, obj.getNome());
+            st.setString(3, obj.getCpf());
 //            st.setDate(3, new java.sql.Date(obj.getBirthDate().getTime()));
 //            st.setDouble(4, obj.getBaseSalary());
 //            st.setInt(5, obj.getDepartment().getId());
