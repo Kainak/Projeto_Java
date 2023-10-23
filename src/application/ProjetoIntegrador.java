@@ -22,8 +22,9 @@ public class ProjetoIntegrador {
 
         produtorDao produtorDao = DaoFactory.createProdutorDao();
 
-        System.out.println("\n=== TEST 4: seller insert =====");
-        Produtor newProdutor = new Produtor(5, "Juarez", "123.456.789-00");
+        System.out.println("\n=== TEST 6: seller insert =====");
+        Produtor newProdutor = new Produtor(5, "Juarez", "133.466.789-00","juarez@example.com", "123456789","987654321","12345678901234","Razao Social Ltda.", true);
+
         produtorDao.insert(newProdutor);
         System.out.println("Inserted! New id = " + newProdutor.getIDprodutor());
 

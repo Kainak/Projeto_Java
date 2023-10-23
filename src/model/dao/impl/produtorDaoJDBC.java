@@ -6,16 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//import com.mysql.jdbc.Statement;
-
 import db.DB;
 import db.DbException;
-import model.dao.SellerDao;
-import model.entities.Department;
+import model.dao.impl.produtorDao;
 import model.entities.Produtor;
-import model.entities.Seller;
 
-public class produtorDaoJDBC implements produtorDao{
+public class produtorDaoJDBC implements produtorDao {
 
     private Connection conn;
 
@@ -30,17 +26,20 @@ public class produtorDaoJDBC implements produtorDao{
         try {
             st = conn.prepareStatement(
                     "INSERT INTO produtor "
-                            + "(IDprodutor, nome, cpf) "
+                            + "(IDprodutor, nome, cpf, email, telefone, telefone2, cnpj, razaosocial, producao_propria) "
                             + "VALUES "
-                            + "(?, ?, ?)",
+                            + "(?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
 
             st.setInt(1, obj.getIDprodutor());
             st.setString(2, obj.getNome());
             st.setString(3, obj.getCpf());
-//            st.setDate(3, new java.sql.Date(obj.getBirthDate().getTime()));
-//            st.setDouble(4, obj.getBaseSalary());
-//            st.setInt(5, obj.getDepartment().getId());
+            st.setString(4, obj.getEmail());
+            st.setString(5, obj.getTelefone());
+            st.setString(6, obj.getTelefone2());
+            st.setString(7, obj.getCnpj());
+            st.setString(8, obj.getRazaoSocial());
+            st.setBoolean(9, obj.isProducaoPropria());
 
             int rowsAffected = st.executeUpdate();
 
@@ -48,7 +47,7 @@ public class produtorDaoJDBC implements produtorDao{
                 ResultSet rs = st.getGeneratedKeys();
                 if (rs.next()) {
                     int id = rs.getInt(1);
-                    obj.setId(id);
+                    obj.setIDprodutor(id);
                 }
                 DB.closeResultSet(rs);
             }
