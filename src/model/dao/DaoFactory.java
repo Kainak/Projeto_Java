@@ -1,10 +1,7 @@
 package model.dao;
 
 import db.DB;
-import model.dao.impl.DepartmentDaoJDBC;
-import model.dao.impl.SellerDaoJDBC;
-import model.dao.impl.produtorDao;
-import model.dao.impl.produtorDaoJDBC;
+import model.dao.impl.*;
 import model.entities.Produtor;
 
 public class DaoFactory {
@@ -18,5 +15,5 @@ public class DaoFactory {
 	public static produtorDao createProdutorDao() {
 		return new produtorDaoJDBC(DB.getConnection());
 	}
-
+	public static DocumentoDao createDocumentoDao() {   return new DocumentoDaoJDBC(DB.getConnection());                                             }
 }

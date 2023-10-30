@@ -1,5 +1,4 @@
 package model.entities;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -60,9 +59,4 @@ public class Produtor implements Serializable {
     public void setId(int id) {
     }
 
-    public void setName(String name) {
-    }
-
-    public void setString(String nome) {
-    }
 }

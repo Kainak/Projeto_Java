@@ -1,16 +1,13 @@
 package application;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-
 import model.dao.DaoFactory;
 import model.dao.impl.produtorDao;
 import model.entities.Produtor;
 import java.util.Scanner;
 
 public class ProjetoIntegrador {
-
     private static List<Produtor> list;
 
     public static void main(String[] args) {
@@ -18,6 +15,7 @@ public class ProjetoIntegrador {
         Scanner sc = new Scanner(System.in);
 
         produtorDao produtorDao = DaoFactory.createProdutorDao();
+
 
         System.out.println("\nDIGITE O ID DE UM PRODUTOR PARA IMPRIMIR");
         int EscolhaProdutor = sc.nextInt();
@@ -35,7 +33,6 @@ public class ProjetoIntegrador {
         produtorDao.insert(newProdutor);
         System.out.println("Inserted!");
 
-
         System.out.println("\nLISTAR TODOS OS PRODUTORES");
         list = produtorDao.findAll();
         for (Produtor obj : list) {
@@ -48,11 +45,9 @@ public class ProjetoIntegrador {
         produtorDao.deleteById(idDelete);
         System.out.println("Delete completed");
 
-
         System.out.println("ATUALIZAR PRODUTOR");
         System.out.println("\nEscolha um ID para atualizar");
         int idUpdate = sc.nextInt();
-
         sc.nextLine();//limpa o buffer
         System.out.print("\nDigite um nome: ");
         // Leia o nome fornecido pelo usuário
