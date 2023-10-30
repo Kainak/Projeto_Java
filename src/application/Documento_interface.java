@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import model.dao.DaoFactory;
 import model.dao.impl.DocumentoDao;
-import model.entities.Department;
 import model.entities.Documento;
 import model.entities.Produtor;
 

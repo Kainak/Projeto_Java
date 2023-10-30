@@ -82,7 +82,7 @@ public class DocumentoDaoJDBC implements DocumentoDao {
 
                 InputStream blobStream = rs.getBinaryStream("documento");
                 File file = new File(String.valueOf(blobStream));
-                long fileSize = file.length();
+                //long fileSize = file.length();
 
                 // Crie um arquivo para salvar o BLOB
                 String nomeDoArquivo = "arquivo_recuperado"; // Nome do arquivo de destino

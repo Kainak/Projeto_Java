@@ -1,6 +1,4 @@
 package model.dao.impl;
-
-import model.entities.Department;
 import model.entities.Produtor;
 
 import java.util.List;

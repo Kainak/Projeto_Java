@@ -56,7 +56,4 @@ public class Produtor implements Serializable {
                 '}';
     }
 
-    public void setId(int id) {
-    }
-
 }
