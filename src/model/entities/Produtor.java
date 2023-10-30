@@ -17,6 +17,10 @@ public class Produtor implements Serializable {
     private String razaoSocial;
     private boolean producaoPropria;
 
+    public Produtor() {
+
+    }
+
     public Integer getIDprodutor() {
         return IDprodutor;
     }
@@ -139,5 +143,11 @@ public class Produtor implements Serializable {
     }
 
     public void setId(int id) {
+    }
+
+    public void setName(String name) {
+    }
+
+    public void setString(String nome) {
     }
 }

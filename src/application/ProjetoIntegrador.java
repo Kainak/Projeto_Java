@@ -5,16 +5,13 @@ import java.util.List;
 import java.util.Scanner;
 
 import model.dao.DaoFactory;
-import model.dao.DepartmentDao;
-import model.dao.SellerDao;
-import model.entities.Department;
-import model.entities.Seller;
 import model.dao.impl.produtorDao;
 import model.entities.Produtor;
-
-import static model.dao.DaoFactory.createDepartmentDao;
+import java.util.Scanner;
 
 public class ProjetoIntegrador {
+
+    private static List<Produtor> list;
 
     public static void main(String[] args) {
 
@@ -22,54 +19,49 @@ public class ProjetoIntegrador {
 
         produtorDao produtorDao = DaoFactory.createProdutorDao();
 
-        System.out.println("\n=== TEST 6: seller insert =====");
-        Produtor newProdutor = new Produtor(5, "Juarez", "133.466.789-00","juarez@example.com", "123456789","987654321","12345678901234","Razao Social Ltda.", true);
+        System.out.println("\nDIGITE O ID DE UM PRODUTOR PARA IMPRIMIR");
+        int EscolhaProdutor = sc.nextInt();
+        Produtor findProdutor = produtorDao.findById(EscolhaProdutor);
+        System.out.println(findProdutor);
 
+        sc.nextLine();//limpa o buffer
+        System.out.println("\nCADASTRO DE PRODUTOR");
+        System.out.print("\nDigite um nome: ");
+        // Leia o nome fornecido pelo usuário
+        String nome = sc.nextLine();
+        // Exibe o nome armazenado no variavel e o ID cadastrado no Banco de dados
+        System.out.println("\nNome digitado: " + nome);
+        Produtor newProdutor = new Produtor(0, nome);
         produtorDao.insert(newProdutor);
-        System.out.println("Inserted! New id = " + newProdutor.getIDprodutor());
+        System.out.println("Inserted!");
 
 
+        System.out.println("\nLISTAR TODOS OS PRODUTORES");
+        list = produtorDao.findAll();
+        for (Produtor obj : list) {
+            System.out.println(obj);
+        }
 
-//        Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", new Date(), 4000.0 );
-//        sellerDao.insert(newSeller);
-//        System.out.println("Inserted! New id = " + newSeller.getId());
+        System.out.println("\nDELETAR UM PRODUTOR");
+        System.out.print("\nEnter id for delete test: ");
+        int idDelete = sc.nextInt();
+        produtorDao.deleteById(idDelete);
+        System.out.println("Delete completed");
 
 
+        System.out.println("ATUALIZAR PRODUTOR");
+        System.out.println("\nEscolha um ID para atualizar");
+        int idUpdate = sc.nextInt();
 
+        sc.nextLine();//limpa o buffer
+        System.out.print("\nDigite um nome: ");
+        // Leia o nome fornecido pelo usuário
 
-//        System.out.println("=== TEST 1: seller findById =====");
-//        Seller seller = sellerDao.findById(3);
-//        System.out.println(seller);
-//
-//        System.out.println("\n=== TEST 2: seller findByDepartment =====");
-//        Department department = new Department(2, null);
-//        List<Seller> list = sellerDao.findByDepartment(department);
-//        for (Seller obj : list) {
-//            System.out.println(obj);
-//        }
-//
-//        System.out.println("\n=== TEST 3: seller findAll =====");
-//        list = sellerDao.findAll();
-//        for (Seller obj : list) {
-//            System.out.println(obj);
-//        }
-//
-//        System.out.println("\n=== TEST 4: seller insert =====");
-//        Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", new Date(), 4000.0, department);
-//        sellerDao.insert(newSeller);
-//        System.out.println("Inserted! New id = " + newSeller.getId());
-//
-//        System.out.println("\n=== TEST 5: seller update =====");
-//        seller = sellerDao.findById(1);
-//        seller.setName("Martha Waine");
-//        sellerDao.update(seller);
-//        System.out.println("Update completed");
-//
-//        System.out.println("\n=== TEST 6: seller delete =====");
-//        System.out.println("Enter id for delete test: ");
-//        int id = sc.nextInt();
-//        sellerDao.deleteById(id);
-//        System.out.println("Delete completed");
+        String atualizarNome = sc.nextLine();//variavel que armazena o nmoe temporareamente
+        Produtor prod2 = produtorDao.findById(idUpdate);
+        prod2.setNome(atualizarNome); //manda por parametro para a função que atualiza
+        produtorDao.update(prod2);
+        System.out.println("Update completed");
 
         sc.close();
     }

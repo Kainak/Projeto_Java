@@ -2,8 +2,17 @@ package model.dao.impl;
 
 import model.entities.Department;
 import model.entities.Produtor;
-import model.entities.Seller;
+
+import java.util.List;
 
 public interface produtorDao {
     void insert(Produtor obj);
+    Produtor findById(Integer IDprodutor);
+
+    List<Produtor> findAll();
+
+    void deleteById(Integer id);
+
+
+    void update(Produtor obj);
 }
