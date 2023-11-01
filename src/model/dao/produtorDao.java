@@ -1,4 +1,4 @@
-package model.dao.impl;
+package model.dao;
 
 import model.entities.Department;
 import model.entities.Produtor;

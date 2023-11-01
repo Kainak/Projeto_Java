@@ -6,7 +6,7 @@ import java.util.List;
 
 import db.DB;
 import db.DbException;
-import model.dao.impl.produtorDao;
+import model.dao.produtorDao;
 import db.DbIntegrityException;
 import model.entities.Produtor;
 

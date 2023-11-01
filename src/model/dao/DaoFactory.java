@@ -3,9 +3,7 @@ package model.dao;
 import db.DB;
 import model.dao.impl.DepartmentDaoJDBC;
 import model.dao.impl.SellerDaoJDBC;
-import model.dao.impl.produtorDao;
 import model.dao.impl.produtorDaoJDBC;
-import model.entities.Produtor;
 
 public class DaoFactory {
 
