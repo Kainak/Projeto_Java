@@ -1,8 +1,8 @@
 package application;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-
 import model.dao.DaoFactory;
 import model.dao.impl.produtorDao;
 import model.entities.Produtor;
@@ -10,7 +10,6 @@ import model.dao.impl.FornecedorDao; // Importe a classe FornecedorDao
 import model.entities.Fornecedor; // Importe a classe Fornecedor
 
 public class ProjetoIntegrador {
-
     private static List<Produtor> list;
 
     public static void main(String[] args) {

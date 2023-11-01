@@ -1,11 +1,10 @@
 package model.dao.impl;
-
-import model.entities.Department;
 import model.entities.Produtor;
 
 import java.util.List;
 
 public interface produtorDao {
+
     void insert(Produtor obj);
     Produtor findById(Integer IDprodutor);
 
@@ -13,6 +12,6 @@ public interface produtorDao {
 
     void deleteById(Integer id);
 
-
     void update(Produtor obj);
+
 }

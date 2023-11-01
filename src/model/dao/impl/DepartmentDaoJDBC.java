@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
@@ -134,6 +133,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
 	@Override
 	public void deleteById(Integer id) {
+
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(

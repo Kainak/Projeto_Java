@@ -8,6 +8,7 @@ import model.dao.impl.produtorDaoJDBC;
 import model.dao.impl.FornecedorDao;
 import model.dao.impl.FornecedorDaoJDBC;
 import model.entities.Fornecedor;
+import model.dao.impl.*;
 import model.entities.Produtor;
 
 public class DaoFactory {
@@ -24,4 +25,5 @@ public class DaoFactory {
 	public static FornecedorDao createFornecedorDao() { return new FornecedorDaoJDBC(DB.getConnection());
 	}
 
+	public static DocumentoDao createDocumentoDao() {   return new DocumentoDaoJDBC(DB.getConnection());                                             }
 }
