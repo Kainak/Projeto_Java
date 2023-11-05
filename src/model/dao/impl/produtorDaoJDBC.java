@@ -4,14 +4,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.mysql.jdbc.Statement;
-
 import db.DB;
 import db.DbException;
+import model.dao.produtorDao;
 import db.DbIntegrityException;
 import model.entities.Produtor;
 
-public class produtorDaoJDBC implements produtorDao{
+public class produtorDaoJDBC implements produtorDao {
 
     private Connection conn;
 
@@ -26,19 +25,20 @@ public class produtorDaoJDBC implements produtorDao{
         try {
             st = conn.prepareStatement(
                     "INSERT INTO produtor "
-                            + "(nome, cpf, email, telefone, telefone2, cnpj, razaosocial, producao_propria) "
+                            + "(IDprodutor, nome, cpf, email, telefone, telefone2, cnpj, razaosocial, producao_propria) "
                             + "VALUES "
-                            + "(?, ?, ?, ?, ?, ?, ?, ?)",
+                            + "(?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
 
-            st.setString(1, obj.getNome());
-            st.setString(2, obj.getCpf());
-            st.setString(3, obj.getEmail());
-            st.setString(4, obj.getTelefone());
-            st.setString(5, obj.getTelefone2());
-            st.setString(6, obj.getCnpj());
-            st.setString(7, obj.getRazaoSocial());
-            st.setBoolean(8, obj.isProducaoPropria());
+            st.setInt(1, obj.getIDprodutor());
+            st.setString(2, obj.getNome());
+            st.setString(3, obj.getCpf());
+            st.setString(4, obj.getEmail());
+            st.setString(5, obj.getTelefone());
+            st.setString(6, obj.getTelefone2());
+            st.setString(7, obj.getCnpj());
+            st.setString(8, obj.getRazaoSocial());
+            st.setBoolean(9, obj.isProducaoPropria());
 
             int rowsAffected = st.executeUpdate();
 
@@ -46,7 +46,7 @@ public class produtorDaoJDBC implements produtorDao{
                 ResultSet rs = st.getGeneratedKeys();
                 if (rs.next()) {
                     int id = rs.getInt(1);
-                    obj.setId(id);
+                    obj.setIDprodutor(id);
                 }
                 DB.closeResultSet(rs);
             }
