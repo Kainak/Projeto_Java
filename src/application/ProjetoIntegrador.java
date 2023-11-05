@@ -9,8 +9,18 @@ import model.entities.Produtor;
 import model.dao.impl.FornecedorDao; // Importe a classe FornecedorDao
 import model.entities.Fornecedor; // Importe a classe Fornecedor
 
+import java.util.List;
+import java.util.Scanner;
+
+
+
+import java.util.Scanner;
+
+import static model.dao.DaoFactory.createProdutorDao;
+
 public class ProjetoIntegrador {
     private static List<Produtor> list;
+    private static produtorDao produtorDao;
 
     public static void main(String[] args) {
 
@@ -118,6 +128,124 @@ public class ProjetoIntegrador {
         } while (escolha != 0);
 
         sc.close();
+    }
+
+    private static void cadastrarProdutor(Scanner sc) {
+        System.out.println("CADASTRO DE PRODUTOR");
+
+        sc.nextLine(); //
+
+        System.out.print("Digite o nome: ");
+        String nome = sc.nextLine();
+
+        System.out.print("Digite o CPF: ");
+        String cpf = sc.nextLine();
+
+        System.out.print("Digite o e-mail: ");
+        String email = sc.nextLine();
+
+        System.out.print("Digite o telefone: ");
+        String telefone = sc.nextLine();
+
+        System.out.print("Digite o segundo telefone: ");
+        String telefone2 = sc.nextLine();
+
+        System.out.print("Digite o CNPJ: ");
+        String cnpj = sc.nextLine();
+
+        System.out.print("Digite a razão social: ");
+        String razaoSocial = sc.nextLine();
+
+        System.out.println("A produção é própria? (true/false): ");
+        boolean producaoPropria = sc.nextBoolean();
+
+        sc.nextLine();
+
+        System.out.println("Nome digitado: " + nome);
+        System.out.println("CPF digitado: " + cpf);
+        System.out.println("E-mail digitado: " + email);
+        System.out.println("Telefone digitado: " + telefone);
+        System.out.println("Segundo telefone digitado: " + telefone2);
+        System.out.println("CNPJ digitado: " + cnpj);
+        System.out.println("Razão Social digitada: " + razaoSocial);
+        System.out.println("Produção Própria: " + producaoPropria);
+
+        Produtor newProdutor = new Produtor(null, nome, cpf, email, telefone, telefone2, cnpj, razaoSocial, producaoPropria);
+        produtorDao.insert(newProdutor);
+        System.out.println("Inserted!");
+    }
+
+
+    private static void listarProdutores() {
+        list = produtorDao.findAll();
+        for (Produtor obj : list) {
+            System.out.println("Produtor " + obj.getIDprodutor() + ":");
+            System.out.println("Nome: " + obj.getNome());
+            System.out.println("CPF: " + obj.getCpf());
+            System.out.println("Email: " + obj.getEmail());
+            System.out.println("Telefone: " + obj.getTelefone());
+            System.out.println("Telefone 2: " + obj.getTelefone2());
+            System.out.println("CNPJ: " + obj.getCnpj());
+            System.out.println("Razão Social: " + obj.getRazaoSocial());
+            System.out.println("Produção Própria: " + (obj.isProducaoPropria() ? "Sim" : "Não"));
+            System.out.println();
+        }
+    }
+
+
+    private static void deletarProdutor(Scanner sc) {
+        System.out.print("Digite o ID do produtor para deletar: ");
+        int idDelete = sc.nextInt();
+        produtorDao.deleteById(idDelete);
+        System.out.println("Produtor Deletado!");
+    }
+
+    private static void atualizarProdutor(Scanner sc) {
+        System.out.println("Escolha um ID para atualizar");
+        int idUpdate = sc.nextInt();
+        sc.nextLine(); // Limpa o buffer
+
+        Produtor prod = produtorDao.findById(idUpdate);
+
+        if (prod != null) {
+            System.out.print("Digite o novo nome: ");
+            prod.setNome(sc.nextLine());
+
+            System.out.print("Digite o novo CPF: ");
+            prod.setCpf(sc.nextLine());
+
+            System.out.print("Digite o novo e-mail: ");
+            prod.setEmail(sc.nextLine());
+
+            System.out.print("Digite o novo telefone: ");
+            prod.setTelefone(sc.nextLine());
+
+            System.out.print("Digite o novo segundo telefone: ");
+            prod.setTelefone2(sc.nextLine());
+
+            System.out.print("Digite o novo CNPJ: ");
+            prod.setCnpj(sc.nextLine());
+
+            System.out.print("Digite a nova razão social: ");
+            prod.setRazaoSocial(sc.nextLine());
+
+            System.out.print("A produção é própria? (true/false): ");
+            prod.setProducaoPropria(sc.nextBoolean());
+
+            produtorDao.update(prod);
+
+            System.out.println("Produtor atualizado com sucesso!");
+        } else {
+            System.out.println("Produtor não encontrado.");
+        }
+    }
+
+
+    private static void buscarProdutorPorID(Scanner sc) {
+        System.out.print("Digite o ID do produtor para buscar: ");
+        int id = sc.nextInt();
+        Produtor findProdutor = produtorDao.findById(id);
+        System.out.println(findProdutor);
     }
 }
 

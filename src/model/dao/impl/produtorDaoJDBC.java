@@ -26,16 +26,19 @@ public class produtorDaoJDBC implements produtorDao{
         try {
             st = conn.prepareStatement(
                     "INSERT INTO produtor "
-                            + "(nome) "
+                            + "(nome, cpf, email, telefone, telefone2, cnpj, razaosocial, producao_propria) "
                             + "VALUES "
-                            + "(?)",
+                            + "(?, ?, ?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
 
-            //st.setInt(1, obj.getIDprodutor());
             st.setString(1, obj.getNome());
-//            st.setDate(3, new java.sql.Date(obj.getBirthDate().getTime()));
-//            st.setDouble(4, obj.getBaseSalary());
-//            st.setInt(5, obj.getDepartment().getId());
+            st.setString(2, obj.getCpf());
+            st.setString(3, obj.getEmail());
+            st.setString(4, obj.getTelefone());
+            st.setString(5, obj.getTelefone2());
+            st.setString(6, obj.getCnpj());
+            st.setString(7, obj.getRazaoSocial());
+            st.setBoolean(8, obj.isProducaoPropria());
 
             int rowsAffected = st.executeUpdate();
 
@@ -59,6 +62,7 @@ public class produtorDaoJDBC implements produtorDao{
         }
     }
 
+
     @Override
     public Produtor findById(Integer IDprodutor) {
         PreparedStatement st = null;
@@ -69,9 +73,17 @@ public class produtorDaoJDBC implements produtorDao{
             st.setInt(1, IDprodutor);
             rs = st.executeQuery();
             if (rs.next()) {
-                Produtor obj = new Produtor();
+                Produtor obj;
+                obj = new Produtor();
                 obj.setIDprodutor(rs.getInt("IDprodutor"));
                 obj.setNome(rs.getString("nome"));
+                obj.setCpf(rs.getString("cpf"));
+                obj.setEmail(rs.getString("email"));
+                obj.setTelefone(rs.getString("telefone"));
+                obj.setTelefone2(rs.getString("telefone2"));
+                obj.setCnpj(rs.getString("cnpj"));
+                obj.setRazaoSocial(rs.getString("razaosocial"));
+                obj.setProducaoPropria(rs.getBoolean("producao_propria"));
                 return obj;
             }
             return null;
@@ -84,6 +96,7 @@ public class produtorDaoJDBC implements produtorDao{
             DB.closeResultSet(rs);
         }
     }
+
 
     @Override
     public List<Produtor> findAll() {
@@ -100,6 +113,13 @@ public class produtorDaoJDBC implements produtorDao{
                 Produtor obj = new Produtor();
                 obj.setIDprodutor(rs.getInt("IDprodutor"));
                 obj.setNome(rs.getString("Nome"));
+                obj.setCpf(rs.getString("cpf"));
+                obj.setEmail(rs.getString("email"));
+                obj.setTelefone(rs.getString("telefone"));
+                obj.setTelefone2(rs.getString("telefone2"));
+                obj.setCnpj(rs.getString("cnpj"));
+                obj.setRazaoSocial(rs.getString("razaosocial"));
+                obj.setProducaoPropria(rs.getBoolean("producao_propria"));
                 list.add(obj);
             }
             return list;
@@ -112,6 +132,7 @@ public class produtorDaoJDBC implements produtorDao{
             DB.closeResultSet(rs);
         }
     }
+
 
     @Override
     public void deleteById(Integer IDprodutor) {
@@ -140,10 +161,25 @@ public class produtorDaoJDBC implements produtorDao{
         try {
             st = conn.prepareStatement(
                     "UPDATE produtor " +
-                            "SET Nome = ? " +
+                            "SET Nome = ?, " +
+                            "CPF = ?, " +
+                            "Email = ?, " +
+                            "Telefone = ?, " +
+                            "Telefone2 = ?, " +
+                            "CNPJ = ?, " +
+                            "RazaoSocial = ?, " +
+                            "Producao_Propria = ? " +
                             "WHERE IDprodutor = ?");
             st.setString(1, obj.getNome());
-            st.setInt(2, obj.getIDprodutor());
+            st.setString(2, obj.getCpf());
+            st.setString(3, obj.getEmail());
+            st.setString(4, obj.getTelefone());
+            st.setString(5, obj.getTelefone2());
+            st.setString(6, obj.getCnpj());
+            st.setString(7, obj.getRazaoSocial());
+            st.setBoolean(8, obj.isProducaoPropria());
+            st.setInt(9, obj.getIDprodutor());
+
             st.executeUpdate();
         }
         catch (SQLException e) {
@@ -153,6 +189,7 @@ public class produtorDaoJDBC implements produtorDao{
             DB.closeStatement(st);
         }
     }
+
 
 
 }
