@@ -3,28 +3,20 @@ package application;
 import java.util.List;
 import java.util.Scanner;
 import model.dao.DaoFactory;
-import model.dao.produtorDao;
+import model.dao.ProdutorDao;
 import model.entities.Produtor;
-import model.dao.impl.FornecedorDao; // Importe a classe FornecedorDao
-import model.entities.Fornecedor; // Importe a classe Fornecedor
+import model.dao.FornecedorDao;
+import model.entities.Fornecedor;
 
-import java.util.List;
-import java.util.Scanner;
-
-
-
-import java.util.Scanner;
-
-import static model.dao.DaoFactory.createProdutorDao;
 
 public class ProjetoIntegrador {
     private static List<Produtor> list;
-    private static produtorDao produtorDao;
+    private static ProdutorDao produtorDao;
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        produtorDao produtorDao = DaoFactory.createProdutorDao();
+        ProdutorDao produtorDao = DaoFactory.createProdutorDao();
         FornecedorDao fornecedorDao = DaoFactory.createFornecedorDao();
 
         int escolha;

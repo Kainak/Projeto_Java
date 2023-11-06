@@ -1,14 +1,11 @@
-package model.dao.impl;
+package model.dao;
 
 import model.entities.Documento;
 
 public interface DocumentoDao {
     void insert(Documento obj);
 
-  //  void Recuperar(int args);
-
     void Recuperar();
 
     void deleteById();
-
 }

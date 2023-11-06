@@ -6,9 +6,8 @@ import model.entities.Produtor;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Scanner;
-import model.dao.impl.produtorDao;
-import model.entities.Produtor;
+
+import model.dao.ProdutorDao;
 
 
 public class MainFrame extends JFrame {
@@ -18,7 +17,7 @@ public class MainFrame extends JFrame {
     private JButton btnClear;
     private JTextPane lbWelcome;
     private JPanel mainPanel;
-    produtorDao produtorDao = DaoFactory.createProdutorDao();
+    ProdutorDao produtorDao = DaoFactory.createProdutorDao();
 
     public MainFrame (){
         setContentPane(mainPanel);

@@ -6,11 +6,11 @@ import java.util.List;
 
 import db.DB;
 import db.DbException;
-import model.dao.produtorDao;
+import model.dao.ProdutorDao;
 import db.DbIntegrityException;
 import model.entities.Produtor;
 
-public class produtorDaoJDBC implements produtorDao {
+public class produtorDaoJDBC implements ProdutorDao {
 
     private Connection conn;
 
