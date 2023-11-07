@@ -1,11 +1,10 @@
 package model.dao.impl;
 
-import model.entities.Department;
 import model.entities.Produtor;
 
 import java.util.List;
 
-public interface produtorDao {
+public interface ProdutorDao {
 
     void insert(Produtor obj);
     Produtor findById(Integer IDprodutor);

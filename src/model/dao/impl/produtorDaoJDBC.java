@@ -1,16 +1,15 @@
 package model.dao.impl;
 
+import db.DB;
+import db.DbException;
+import db.DbIntegrityException;
+import model.entities.Produtor;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import db.DB;
-import db.DbException;
-import model.dao.produtorDao;
-import db.DbIntegrityException;
-import model.entities.Produtor;
-
-public class produtorDaoJDBC implements produtorDao {
+public class produtorDaoJDBC implements ProdutorDao {
 
     private Connection conn;
 
@@ -51,7 +50,7 @@ public class produtorDaoJDBC implements produtorDao {
                 DB.closeResultSet(rs);
             }
             else {
-                throw new DbException("Unexpected error! No rows affected!");
+                throw new DbException("Erro.... =(");
             }
         }
         catch (SQLException e) {

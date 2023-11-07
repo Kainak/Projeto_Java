@@ -1,14 +1,15 @@
 
 package application;
-import java.io.*;
-import java.util.List;
-import java.util.Scanner;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import model.dao.DaoFactory;
 import model.dao.impl.DocumentoDao;
 import model.entities.Documento;
 import model.entities.Produtor;
+
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
 
 
 public class Documento_interface {
@@ -24,7 +25,7 @@ public class Documento_interface {
 
         System.out.println("Em qual produtor deseja inserir um arquivo?");
         Integer escolha = Integer.valueOf(sc.nextLine());
-        Produtor IDprodutor = new Produtor(escolha, null);
+        Produtor IDprodutor = new Produtor();
 
         System.out.print("Digite o título: ");
         String titulo = sc.nextLine();
