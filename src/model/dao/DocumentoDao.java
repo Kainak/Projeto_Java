@@ -1,9 +1,5 @@
 package model.dao;
-
 import model.entities.Documento;
-import model.entities.Produtor;
-
-import java.util.Date;
 import java.util.List;
 
 public interface DocumentoDao {
