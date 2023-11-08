@@ -36,11 +36,14 @@ public class Documento_interface {
         System.out.print("Digite a data de vencimento (no formato yyyy-MM-dd): ");
         String dataVencimentoStr = sc.nextLine();
 
-        try{
-            // Parse da data de vencimento, como mencionado anteriormente
+        String dataInvalida = "Data Inválida";
+        SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            Date data = formatoData.parse(dataInvalida);
+            System.out.println("Data: " + data);
         } catch (Exception e) {
-            System.out.println("Data de vencimento inválida. Certifique-se de usar o formato yyyy-MM-dd.");
-            return;
+            System.err.println("Ocorreu uma exceção de data: " + e.getMessage());
         }
 
 
