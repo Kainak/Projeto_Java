@@ -25,10 +25,15 @@ public class ProjetoIntegrador {
         System.out.print("\nDigite um nome: ");
         // Leia o nome fornecido pelo usuário
         String nome = sc.nextLine();
+
+
         // Exibe o nome armazenado no variavel e o ID cadastrado no Banco de dados
         System.out.println("\nNome digitado: " + nome);
+
         Produtor newProdutor = new Produtor(0, nome);
+
         produtorDao.insert(newProdutor);
+
         System.out.println("Inserted!");
 
         System.out.println("\nLISTAR TODOS OS PRODUTORES");

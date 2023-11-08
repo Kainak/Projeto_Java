@@ -1,16 +1,21 @@
 package model.dao.impl;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.*;
-import java.sql.Date;
-import java.util.*;
+
 import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
 import model.dao.DocumentoDao;
 import model.entities.Documento;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 
 public class DocumentoDaoJDBC implements DocumentoDao {
 
@@ -26,14 +31,14 @@ public class DocumentoDaoJDBC implements DocumentoDao {
         try {
             st = conn.prepareStatement(
                     "INSERT INTO documento " +
-                            "(titulo, data, data_venc, documento, IDprodutor) " + // Inclua todas as colunas aqui
+                            "(titulo, data, data_venc, documento, IDprodutor) " +
                             "VALUES (?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
 
             st.setString(1, obj.getTitulo());
-            st.setDate(2, new Date(obj.getData().getTime())); // Substitua pelo tipo de dados correto, se necessário
-            st.setDate(3, new Date(obj.getData_venc().getTime())); // Substitua pelo tipo de dados correto, se necessário
-            st.setBlob(4, obj.getDocumento()); // Substitua pelo tipo de dados correto, se necessário
+            st.setDate(2, new Date(obj.getData().getTime()));
+            st.setDate(3, new Date(obj.getData_venc().getTime()));
+            st.setBlob(4, obj.getDocumento());
             st.setInt(5, obj.getProdutor().getIDprodutor());
 
             int rowsAffected = st.executeUpdate();
@@ -44,69 +49,49 @@ public class DocumentoDaoJDBC implements DocumentoDao {
                     int id = rs.getInt(1);
                     obj.setIDdocumentos(id);
                 }
-            }
-            else {
+            } else {
                 throw new DbException("Erro inesperado! Nenhuma linha afetada!");
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             DB.closeStatement(st);
         }
     }
 
 
-    @Override
-    public void Recuperar(int recuperar) {
+    public void recuperar(int recuperar) {
 
         PreparedStatement st = null;
         ResultSet rs = null;
 
         try {
-
             st = conn.prepareStatement("SELECT documento FROM documento WHERE IDdocumento = ?");
             st.setInt(1, recuperar);
             rs = st.executeQuery();
-
-
             if (rs.next()) {
-
-                 //Recupere o BLOB da coluna "conteudo_blob"
-
+                // Recupere o BLOB da coluna "documento"
                 InputStream blobStream = rs.getBinaryStream("documento");
-                File file = new File(String.valueOf(blobStream));
-                //long fileSize = file.length();
 
-                // Crie um arquivo para salvar o BLOB
-                String nomeDoArquivo = "arquivo_recuperado"; // Nome do arquivo de destino
+                // Nome do arquivo de destino
+                String nomeDoArquivo = "arquivo_recuperado";
 
-                try (FileOutputStream outputStream = new FileOutputStream(nomeDoArquivo)) {
-                    byte[] buffer = new byte[1024];
-                    while (blobStream.read(buffer) != -1) {
-                        outputStream.write(buffer);
-                            }
-                } catch (IOException e) {
-                  //  e.printStackTrace();
-                }
+                // Usando Files.copy para salvar o BLOB em um arquivo
+                Path path = Paths.get(nomeDoArquivo);
+                Files.copy(blobStream, path, StandardCopyOption.REPLACE_EXISTING);
 
                 System.out.println("Arquivo BLOB recuperado com sucesso.");
             } else {
                 System.out.println("Nenhum registro encontrado com o ID especificado.");
-
             }
-
-        }
-        catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             DB.closeStatement(st);
             DB.closeResultSet(rs);
         }
-
     }
+
 
     @Override
     public void deleteById(int excluir) {
@@ -121,11 +106,9 @@ public class DocumentoDaoJDBC implements DocumentoDao {
             st.setInt(1, excluir);
 
             st.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DbIntegrityException(e.getMessage());
-        }
-        finally {
+        } finally {
             DB.closeStatement(st);
         }
     }
@@ -161,9 +144,5 @@ public class DocumentoDaoJDBC implements DocumentoDao {
             DB.closeResultSet(rs);
         }
     }
-
 }
-
-
-
 
