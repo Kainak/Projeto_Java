@@ -1,7 +1,14 @@
 package application.FornedoresInterface;
 
+
+import model.dao.FornecedorDao;
+import model.dao.impl.FornecedorDaoJDBC;
+import model.entities.Fornecedor;
+import db.DB;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 public class FormularioFornecedores extends JFrame {
 
@@ -14,10 +21,14 @@ public class FormularioFornecedores extends JFrame {
     private JScrollPane categoriasFornecedores;
     private JScrollBar scrollBar1;
 
+    private FornecedorDao fornecedorDAO;
+
     public FormularioFornecedores() {
         setTitle("Formulário de Fornecedores");
         setSize(650, 650);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        fornecedorDAO = new FornecedorDaoJDBC(DB.getConnection());
 
         voltarButton.addActionListener(e -> {
             new MainFrame();
@@ -26,12 +37,15 @@ public class FormularioFornecedores extends JFrame {
 
         adicionarFornecedorButton.addActionListener(e -> {
             new AdicionarFornecedor();
+            this.dispose();
         });
         atualizarFornecedorButton.addActionListener(e -> {
             new AtualizarFornecedor();
+            this.dispose();
         });
         deletarFornecedorButton.addActionListener(e -> {
             new DeletarFornecedor();
+            this.dispose();
         });
         setContentPane(formularioFornecedores);
 
@@ -40,9 +54,12 @@ public class FormularioFornecedores extends JFrame {
     }
 
     private void createTable() {
-        Object[][] data = {
-                {"xixi", "45998039952"},
-        };
+        List<Fornecedor> fornecedores = fornecedorDAO.findAll();
+        Object[][] data = new Object[fornecedores.size()][2];
+        for (int i = 0; i < fornecedores.size(); i++) {
+            data[i][0] = fornecedores.get(i).getNome();
+            data[i][1] = fornecedores.get(i).getTelefone();
+        }
         tabelaFornecedores.setModel(new DefaultTableModel(
                 data,
                 new String[]{"Nome", "Telefone"}

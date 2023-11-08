@@ -33,6 +33,12 @@ public class AdicionarFornecedor extends JFrame {
                 salvarFornecedor();
             }
         });
+        voltarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new FormularioFornecedores();
+            }
+        });
     }
 
     private void salvarFornecedor() {

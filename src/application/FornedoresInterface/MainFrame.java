@@ -7,8 +7,6 @@ public class MainFrame extends JFrame {
     private JButton fornecedoresButton;
     private JPanel mainPanel;
 
-
-
     public MainFrame() {
 
         setContentPane(mainPanel);
