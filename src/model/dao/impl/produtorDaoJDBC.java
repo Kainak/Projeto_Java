@@ -9,9 +9,10 @@ import java.util.List;
 import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
+import model.dao.produtorDao;
 import model.entities.Produtor;
 
-public class produtorDaoJDBC implements produtorDao{
+public class produtorDaoJDBC implements produtorDao {
 
     private Connection conn;
 
@@ -43,7 +44,7 @@ public class produtorDaoJDBC implements produtorDao{
                 ResultSet rs = st.getGeneratedKeys();
                 if (rs.next()) {
                     int id = rs.getInt(1);
-                    obj.setId(id);
+                    //obj.setId(id);
                 }
                 DB.closeResultSet(rs);
             }

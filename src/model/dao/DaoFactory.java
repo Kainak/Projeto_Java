@@ -2,7 +2,6 @@ package model.dao;
 
 import db.DB;
 import model.dao.impl.*;
-import model.entities.Produtor;
 
 public class DaoFactory {
 

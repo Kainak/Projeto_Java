@@ -1,11 +1,9 @@
 package application;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import model.dao.DaoFactory;
-import model.dao.impl.produtorDao;
+import model.dao.produtorDao;
 import model.entities.Produtor;
-import java.util.Scanner;
 
 public class ProjetoIntegrador {
     private static List<Produtor> list;

@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import model.dao.DaoFactory;
-import model.dao.impl.DocumentoDao;
+import model.dao.DocumentoDao;
 import model.entities.Documento;
 import model.entities.Produtor;
 
@@ -84,9 +84,30 @@ public class Documento_interface {
             System.out.println("Erro ao carregar o arquivo: " + e.getMessage());
         }
 
+        System.out.println("\nDIGITE O ID DE UM DOCUMENTO QUE DESEJA RECUPERAR:");
+        int recuperar = sc.nextInt();
+        documentoDao.Recuperar(recuperar);
 
-        documentoDao.Recuperar();
-        documentoDao.deleteById();
+        System.out.println("DIGITE O ID DO DOCUMENTO QUE DESEJA EXCLUIR:");
+        int excluir = sc.nextInt();
+        documentoDao.deleteById(excluir);
+
+        System.out.print("Digite o ID do produtor que deseja procurar: ");
+        int produtorId = sc.nextInt();
+        Documento documentoDAO = new Documento(); // Substitua DocumentoDAO pelo nome da classe que contém o método findByProdutorId.
+
+        List<Documento> documentos = documentoDao.findByProdutorId(produtorId);
+        if (documentos.isEmpty()) {
+            System.out.println("Nenhum documento encontrado para o produtor com o ID " + produtorId);
+        } else {
+            System.out.println("Documentos encontrados para o produtor com o ID " + produtorId + ":");
+            for (Documento documentoimp : documentos) {
+                System.out.println("ID do Documento: " + documentoimp.getIDdocumentos());
+                System.out.println("Título: " + documentoimp.getTitulo());
+                // Outros atributos do documento
+                System.out.println();
+            }
+        }
 
 
     }

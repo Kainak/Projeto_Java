@@ -6,9 +6,8 @@ import model.entities.Produtor;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Scanner;
-import model.dao.impl.produtorDao;
-import model.entities.Produtor;
+
+import model.dao.produtorDao;
 
 
 public class MainFrame extends JFrame {
@@ -29,12 +28,11 @@ public class MainFrame extends JFrame {
         btnOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 String EscolhaProdutor = tfNome.getText();
-                String sobrenome = tfSobrenome.getText();
                 Produtor findProdutor = produtorDao.findById(Integer.valueOf(EscolhaProdutor));
                // System.out.println(findProdutor);
-
-                lbWelcome.setText("Welcome" + findProdutor + " " + sobrenome);
+                lbWelcome.setText("Welcome" + findProdutor);
             }
         });
     }
