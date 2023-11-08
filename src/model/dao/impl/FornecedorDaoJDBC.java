@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import model.dao.FornecedorDao;
 import model.entities.Fornecedor;
 import db.DB;
 import db.DbException;

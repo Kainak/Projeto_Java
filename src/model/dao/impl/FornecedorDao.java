@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.impl;
 
 import model.entities.Fornecedor;
 

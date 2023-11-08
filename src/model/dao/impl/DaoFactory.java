@@ -1,7 +1,6 @@
-package model.dao;
+package model.dao.impl;
 
 import db.DB;
-import model.dao.impl.*;
 
 public class DaoFactory {
 

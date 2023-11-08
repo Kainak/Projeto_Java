@@ -1,6 +1,6 @@
 package application.FornedoresInterface;
 
-import model.dao.FornecedorDao;
+import model.dao.impl.FornecedorDao;
 import model.dao.impl.FornecedorDaoJDBC;
 import model.entities.Fornecedor;
 import db.DB;

@@ -4,14 +4,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
-import model.dao.DocumentoDao;
 import model.entities.Documento;
 
 public class DocumentoDaoJDBC implements DocumentoDao {

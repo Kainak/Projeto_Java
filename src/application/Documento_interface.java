@@ -4,8 +4,8 @@ import java.io.*;
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import model.dao.DaoFactory;
-import model.dao.DocumentoDao;
+import model.dao.impl.DaoFactory;
+import model.dao.impl.DocumentoDao;
 import model.entities.Documento;
 import model.entities.Produtor;
 

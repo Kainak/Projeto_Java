@@ -10,7 +10,6 @@ import java.util.List;
 import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
-import model.dao.DepartmentDao;
 
 public class DepartmentDaoJDBC implements DepartmentDao {
 

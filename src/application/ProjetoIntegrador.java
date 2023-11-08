@@ -1,6 +1,6 @@
 package application;
 
-import model.dao.DaoFactory;
+import model.dao.impl.DaoFactory;
 import model.dao.impl.FornecedorDao;
 import model.dao.impl.ProdutorDao;
 import model.entities.Fornecedor;
