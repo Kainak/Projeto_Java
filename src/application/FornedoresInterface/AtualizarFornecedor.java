@@ -26,6 +26,7 @@ public class AtualizarFornecedor extends JFrame {
         setSize(350, 350);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setContentPane(atualizarFornecedor);
+        setLocationRelativeTo(null);
         setVisible(true);
 
         fornecedorDAO = new FornecedorDaoJDBC(DB.getConnection());

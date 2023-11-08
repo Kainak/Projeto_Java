@@ -19,7 +19,6 @@ public class FormularioFornecedores extends JFrame {
     private JButton voltarButton;
     private JTable tabelaFornecedores;
     private JScrollPane categoriasFornecedores;
-    private JScrollBar scrollBar1;
 
     private FornecedorDao fornecedorDAO;
 
@@ -27,7 +26,7 @@ public class FormularioFornecedores extends JFrame {
         setTitle("Formulário de Fornecedores");
         setSize(650, 650);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
+        setLocationRelativeTo(null);
         fornecedorDAO = new FornecedorDaoJDBC(DB.getConnection());
 
         voltarButton.addActionListener(e -> {
@@ -55,14 +54,16 @@ public class FormularioFornecedores extends JFrame {
 
     private void createTable() {
         List<Fornecedor> fornecedores = fornecedorDAO.findAll();
-        Object[][] data = new Object[fornecedores.size()][2];
+        Object[][] data = new Object[fornecedores.size()][3];
         for (int i = 0; i < fornecedores.size(); i++) {
-            data[i][0] = fornecedores.get(i).getNome();
-            data[i][1] = fornecedores.get(i).getTelefone();
+            data[i][0] = fornecedores.get(i).getId();
+            data[i][1] = fornecedores.get(i).getNome();
+            data[i][2] = fornecedores.get(i).getTelefone();
         }
         tabelaFornecedores.setModel(new DefaultTableModel(
                 data,
-                new String[]{"Nome", "Telefone"}
+                new String[]{"ID", "Nome", "Telefone"}
         ));
     }
+
 }

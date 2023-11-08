@@ -26,7 +26,7 @@ public class DeletarFornecedor extends JFrame {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setContentPane(deletarFornecedor);
         setVisible(true);
-
+        setLocationRelativeTo(null);
         fornecedorDAO = new FornecedorDaoJDBC(DB.getConnection());
 
         buscarButton.addActionListener(new ActionListener() {

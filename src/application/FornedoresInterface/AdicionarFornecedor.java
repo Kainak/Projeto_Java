@@ -24,7 +24,7 @@ public class AdicionarFornecedor extends JFrame {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setContentPane(adicionarFornecedor);
         setVisible(true);
-
+        setLocationRelativeTo(null);
         fornecedorDAO = new FornecedorDaoJDBC(DB.getConnection());
 
         salvarButton.addActionListener(new ActionListener() {
