@@ -24,20 +24,20 @@ public class produtorDaoJDBC implements ProdutorDao {
         try {
             st = conn.prepareStatement(
                     "INSERT INTO produtor "
-                            + "(IDprodutor, nome, cpf, email, telefone, telefone2, cnpj, razaosocial, producao_propria) "
+                            + "(nome, cpf, email, telefone, telefone2, cnpj, razaosocial, producao_propria) "
                             + "VALUES "
-                            + "(?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                            + "(?, ?, ?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
 
             st.setInt(1, obj.getIDprodutor());
-            st.setString(2, obj.getNome());
-            st.setString(3, obj.getCpf());
-            st.setString(4, obj.getEmail());
-            st.setString(5, obj.getTelefone());
-            st.setString(6, obj.getTelefone2());
-            st.setString(7, obj.getCnpj());
-            st.setString(8, obj.getRazaoSocial());
-            st.setBoolean(9, obj.isProducaoPropria());
+            st.setString(1, obj.getNome());
+            st.setString(2, obj.getCpf());
+            st.setString(3, obj.getEmail());
+            st.setString(4, obj.getTelefone());
+            st.setString(5, obj.getTelefone2());
+            st.setString(6, obj.getCnpj());
+            st.setString(7, obj.getRazaoSocial());
+            st.setBoolean(8, obj.isProducaoPropria());
 
             int rowsAffected = st.executeUpdate();
 
