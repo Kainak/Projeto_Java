@@ -1,6 +1,9 @@
 
 package application;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
@@ -14,14 +17,14 @@ import model.entities.Produtor;
 public class Documento_interface {
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
         Documento documento = new Documento();
+
+        Scanner sc = new Scanner(System.in);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DocumentoDao documentoDao = DaoFactory.createDocumentoDao();
 
         System.out.println("\nCADASTRO DE DOCUMENTO");
-
         System.out.println("Em qual produtor deseja inserir um arquivo?");
         Integer escolha = Integer.valueOf(sc.nextLine());
         Produtor IDprodutor = new Produtor(escolha, null);
@@ -32,64 +35,51 @@ public class Documento_interface {
         Date dataAtual = new Date();
         System.out.println("Data atual: " + dateFormat.format(dataAtual));
 
-        Date dataVencimento = new Date();
-        System.out.print("Digite a data de vencimento (no formato yyyy-MM-dd): ");
-        String dataVencimentoStr = sc.nextLine();
+        Date dataVencimento = null;
+        SimpleDateFormat formatoData = new SimpleDateFormat("yyyy-MM-dd");
 
-        String dataInvalida = "Data Inválida";
-        SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+        while (dataVencimento == null) {
+            System.out.print("Digite a data de vencimento (no formato yyyy-MM-dd): ");
+            String dataVencimentoStr = sc.nextLine();
 
-        try {
-            Date data = formatoData.parse(dataInvalida);
-            System.out.println("Data: " + data);
-        } catch (Exception e) {
-            System.err.println("Ocorreu uma exceção de data: " + e.getMessage());
+            try {
+                dataVencimento = formatoData.parse(dataVencimentoStr);
+            } catch (ParseException e) {
+                System.err.println("Data inválida. Tente novamente.");
+            }
         }
-
-
+        System.out.println("Data de vencimento: " + formatoData.format(dataVencimento));
         //AQUI É ONDE É COLOCADO O DIRETÓRIO DO ARQUIVO
         System.out.print("Digite o caminho do arquivo a ser inserido: ");
         String filePath = sc.nextLine();
 
-
-        //TUDO ISSO É SÓ PRA ADICIONAR UM ARQUIVO
         try {
             File file = new File(filePath);
             if (!file.exists()) {
                 System.out.println("O arquivo não existe.");
                 return;
             }
-            long fileSize = file.length();
-            // Create a BufferedInputStream to read the file
-            BufferedInputStream documentoStream = new BufferedInputStream(new FileInputStream(filePath));
-            // Create a Documento object
+            // Lê todos os bytes do arquivo
+            byte[] fileBytes = Files.readAllBytes(Paths.get(filePath));
             documento.setTitulo(titulo);
             documento.setData(dataAtual);
             documento.setData_venc(dataVencimento);
-            // Define a buffer for reading chunks of data
-            byte[] buffer = new byte[(int) fileSize]; // Adjust the buffer size as needed
-            int bytesRead;
-            // Loop to read and write data in chunks
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            while ((bytesRead = documentoStream.read(buffer)) != -1) {
-                // Write the bytesRead portion of data to the ByteArrayOutputStream
-                outputStream.write(buffer, 0, bytesRead);
-            }
-            // Set the document content from the ByteArrayOutputStream
-            documento.setDocumento(new ByteArrayInputStream(outputStream.toByteArray()));
+            // Define os bytes do documento diretamente
+            documento.setDocumento(new ByteArrayInputStream(fileBytes));
             documento.setProdutor(IDprodutor);
-
-            // Insert the document into the database
+            // INSERE O DOCUMENTO NO BANCO
             documentoDao.insert(documento);
-
             System.out.println("Documento inserido!");
         } catch (Exception e) {
             System.out.println("Erro ao carregar o arquivo: " + e.getMessage());
         }
 
+
+
+
         System.out.println("\nDIGITE O ID DE UM DOCUMENTO QUE DESEJA RECUPERAR:");
         int recuperar = sc.nextInt();
-        documentoDao.Recuperar(recuperar);
+        documentoDao.recuperar(recuperar);
 
         System.out.println("DIGITE O ID DO DOCUMENTO QUE DESEJA EXCLUIR:");
         int excluir = sc.nextInt();
