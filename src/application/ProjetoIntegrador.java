@@ -14,13 +14,10 @@ public class ProjetoIntegrador {
     private static ProdutorDao produtorDao;
 
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
         ProdutorDao produtorDao = DaoFactory.createProdutorDao();
         FornecedorDao fornecedorDao = DaoFactory.createFornecedorDao();
-
         int escolha;
-
         do {
             System.out.println("\nEscolha uma opção:");
             System.out.println("1 - Listar Produtores");
@@ -32,11 +29,8 @@ public class ProjetoIntegrador {
             System.out.println("7 - Deletar Fornecedor");
             System.out.println("8 - Atualizar Fornecedor");
             System.out.println("0 - Sair");
-
             escolha = sc.nextInt();
-
             sc.nextLine();
-
             switch (escolha) {
                 case 1:
                     System.out.println("\nLISTAR TODOS OS PRODUTORES");
@@ -187,9 +181,7 @@ public class ProjetoIntegrador {
                 default:
                     System.out.println("Opção inválida. Por favor, tente novamente.");
             }
-
         } while (escolha != 0);
-
         sc.close();
     }
 }

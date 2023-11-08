@@ -11,8 +11,8 @@ import java.util.Scanner;
 import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
+import model.dao.DocumentoDao;
 import model.entities.Documento;
-import model.entities.Produtor;
 
 public class DocumentoDaoJDBC implements DocumentoDao {
 
