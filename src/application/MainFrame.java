@@ -1,6 +1,7 @@
 package application;
 
 import model.dao.DaoFactory;
+import model.dao.impl.DaoFactory;
 import model.entities.Produtor;
 
 import javax.swing.*;
@@ -17,6 +18,7 @@ public class MainFrame extends JFrame {
     private JButton btnClear;
     private JTextPane lbWelcome;
     private JPanel mainPanel;
+    private model.dao.impl.DaoFactory DaoFactory;
     produtorDao produtorDao = DaoFactory.createProdutorDao();
 
     public MainFrame (){
