@@ -13,8 +13,8 @@ public class DaoFactory {
 	}
 
 	public static DocumentoDao createDocumentoDao() {
-		return new DocumentoDaoJDBC(DB.getConnection());
-	}
+		return new DocumentoDaoJDBC(DB.getConnection());                                             }
+}
 
 	public static UsuarioDao createUsuarioDao() {
 		return new UsuarioDaoJDBC(DB.getConnection());

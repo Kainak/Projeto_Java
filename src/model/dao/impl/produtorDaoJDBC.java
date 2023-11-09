@@ -3,6 +3,7 @@ package model.dao.impl;
 import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
+import model.dao.produtorDao;
 import model.entities.Produtor;
 
 import java.sql.*;
