@@ -79,6 +79,15 @@ public class Documento {
         this.produtor = produtor;
     }
 
+    public Documento(Integer IDdocumentos, String titulo, Date data, Date data_venc, InputStream documento, Produtor produtor) {
+        this.IDdocumentos = IDdocumentos;
+        this.titulo = titulo;
+        this.data = data;
+        this.data_venc = data_venc;
+        this.documento = documento;
+        this.produtor = produtor;
+    }
+
     private String titulo;
 
     private Date data;
@@ -94,6 +103,9 @@ public class Documento {
     }
 
     public void setProdutor(int iDprodutor) {
+    }
+
+    public void inserirDocumento(String filePath, String titulo, Date dataAtual, Date dataVencimento, Produtor iDprodutor) {
     }
 
 }

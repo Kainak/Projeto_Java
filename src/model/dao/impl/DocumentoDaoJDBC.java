@@ -94,6 +94,8 @@ public class DocumentoDaoJDBC implements DocumentoDao {
     @Override
     public void deleteById(int excluir) {
 
+        Scanner sc = new Scanner(System.in);
+
         PreparedStatement st = null;
 
         try {

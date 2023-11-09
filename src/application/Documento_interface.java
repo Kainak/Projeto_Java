@@ -87,8 +87,7 @@ public class Documento_interface {
 
         System.out.print("Digite o ID do produtor que deseja procurar: ");
         int produtorId = sc.nextInt();
-
-        //Documento documentoDAO = new Documento();
+        Documento documentoDAO = new Documento(); // Substitua DocumentoDAO pelo nome da classe que contém o método findByProdutorId.
 
         List<Documento> documentos = documentoDao.findByProdutorId(produtorId);
         if (documentos.isEmpty()) {
