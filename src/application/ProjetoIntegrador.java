@@ -29,12 +29,10 @@ public class ProjetoIntegrador {
 
         // Exibe o nome armazenado no variavel e o ID cadastrado no Banco de dados
         System.out.println("\nNome digitado: " + nome);
-
         Produtor newProdutor = new Produtor(0, nome);
-
         produtorDao.insert(newProdutor);
-
         System.out.println("Inserted!");
+
 
         System.out.println("\nLISTAR TODOS OS PRODUTORES");
         list = produtorDao.findAll();
@@ -48,12 +46,14 @@ public class ProjetoIntegrador {
         produtorDao.deleteById(idDelete);
         System.out.println("Delete completed");
 
+
         System.out.println("ATUALIZAR PRODUTOR");
         System.out.println("\nEscolha um ID para atualizar");
         int idUpdate = sc.nextInt();
         sc.nextLine();//limpa o buffer
         System.out.print("\nDigite um nome: ");
         // Leia o nome fornecido pelo usuário
+
 
         String atualizarNome = sc.nextLine();//variavel que armazena o nmoe temporareamente
         Produtor prod2 = produtorDao.findById(idUpdate);

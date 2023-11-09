@@ -28,15 +28,14 @@ public class Documento_interface {
         System.out.println("Em qual produtor deseja inserir um arquivo?");
         Integer escolha = Integer.valueOf(sc.nextLine());
         Produtor IDprodutor = new Produtor(escolha, null);
-
         System.out.print("Digite o título: ");
         String titulo = sc.nextLine();
 
         Date dataAtual = new Date();
-        System.out.println("Data atual: " + dateFormat.format(dataAtual));
+        SimpleDateFormat formatoData = new SimpleDateFormat("dd-MM-yyyy");
 
+        System.out.println("Data atual: " + formatoData.format(dataAtual));
         Date dataVencimento = null;
-        SimpleDateFormat formatoData = new SimpleDateFormat("yyyy-MM-dd");
 
         while (dataVencimento == null) {
             System.out.print("Digite a data de vencimento (no formato yyyy-MM-dd): ");
@@ -49,10 +48,11 @@ public class Documento_interface {
             }
         }
         System.out.println("Data de vencimento: " + formatoData.format(dataVencimento));
+
+
         //AQUI É ONDE É COLOCADO O DIRETÓRIO DO ARQUIVO
         System.out.print("Digite o caminho do arquivo a ser inserido: ");
         String filePath = sc.nextLine();
-
         try {
             File file = new File(filePath);
             if (!file.exists()) {
