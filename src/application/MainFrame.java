@@ -1,14 +1,11 @@
 package application;
 
-import model.dao.DaoFactory;
-import model.dao.impl.DaoFactory;
+import model.dao.impl.ProdutorDao;
 import model.entities.Produtor;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import model.dao.produtorDao;
 
 
 public class MainFrame extends JFrame {
@@ -19,7 +16,7 @@ public class MainFrame extends JFrame {
     private JTextPane lbWelcome;
     private JPanel mainPanel;
     private model.dao.impl.DaoFactory DaoFactory;
-    produtorDao produtorDao = DaoFactory.createProdutorDao();
+    ProdutorDao produtorDao = model.dao.impl.DaoFactory.createProdutorDao();
 
     public MainFrame (){
         setContentPane(mainPanel);

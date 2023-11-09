@@ -1,9 +1,13 @@
 package application;
+
+import model.dao.impl.DaoFactory;
+import model.dao.impl.FornecedorDao;
+import model.dao.impl.ProdutorDao;
+import model.entities.Fornecedor;
+import model.entities.Produtor;
+
 import java.util.List;
 import java.util.Scanner;
-import model.dao.DaoFactory;
-import model.dao.produtorDao;
-import model.entities.Produtor;
 
 public class ProjetoIntegrador {
     private static List<Produtor> list;

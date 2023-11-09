@@ -3,7 +3,6 @@ package model.dao.impl;
 import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
-import model.dao.DocumentoDao;
 import model.entities.Documento;
 
 import java.io.*;
@@ -12,6 +11,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 

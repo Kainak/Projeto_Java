@@ -3,18 +3,17 @@ package model.dao.impl;
 import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
-import model.dao.produtorDao;
 import model.entities.Produtor;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class produtorDaoJDBC implements ProdutorDao {
+public class ProdutorDaoJDBC implements ProdutorDao {
 
     private Connection conn;
 
-    public produtorDaoJDBC(Connection conn) {
+    public ProdutorDaoJDBC(Connection conn) {
         this.conn = conn;
     }
 

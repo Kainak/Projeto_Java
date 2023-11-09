@@ -1,17 +1,20 @@
 
 package application;
-import java.io.*;
+
+import model.dao.impl.DocumentoDao;
+import model.dao.impl.DaoFactory;
+import model.entities.Documento;
+import model.entities.Produtor;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
-import java.util.List;
-import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import model.dao.DaoFactory;
-import model.dao.DocumentoDao;
-import model.entities.Documento;
-import model.entities.Produtor;
+import java.util.List;
+import java.util.Scanner;
 
 
 public class Documento_interface {
