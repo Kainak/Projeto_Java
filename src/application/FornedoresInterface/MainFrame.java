@@ -5,6 +5,7 @@ import javax.swing.*;
 public class MainFrame extends JFrame {
     private JButton fornecedoresButton;
     private JPanel mainPanel;
+    private JButton usuariosButton;
 
     public MainFrame() {
 
@@ -21,7 +22,12 @@ public class MainFrame extends JFrame {
             this.dispose();
 
         });
+        usuariosButton.addActionListener(e -> {
+            new FormularioUsuarios();
 
+            this.dispose();
+
+        });
         mainPanel.setVisible(true);
 
     }
