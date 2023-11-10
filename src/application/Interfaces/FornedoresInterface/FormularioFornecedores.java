@@ -1,17 +1,13 @@
-package application.FornedoresInterface;
-
-
+package application.Interfaces.FornedoresInterface;
 import model.dao.FornecedorDao;
 import model.dao.impl.FornecedorDaoJDBC;
 import model.entities.Fornecedor;
+import application.Interfaces.MainFrame;
 import db.DB;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
-
 public class FormularioFornecedores extends JFrame {
-
     private JPanel formularioFornecedores;
     private JButton adicionarFornecedorButton;
     private JButton atualizarFornecedorButton;
@@ -19,21 +15,17 @@ public class FormularioFornecedores extends JFrame {
     private JButton voltarButton;
     private JTable tabelaFornecedores;
     private JScrollPane categoriasFornecedores;
-
     private FornecedorDao fornecedorDAO;
-
     public FormularioFornecedores() {
         setTitle("Formulário de Fornecedores");
         setSize(650, 650);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         fornecedorDAO = new FornecedorDaoJDBC(DB.getConnection());
-
         voltarButton.addActionListener(e -> {
             new MainFrame();
             this.dispose();
         });
-
         adicionarFornecedorButton.addActionListener(e -> {
             new AdicionarFornecedor();
             this.dispose();
@@ -47,11 +39,9 @@ public class FormularioFornecedores extends JFrame {
             this.dispose();
         });
         setContentPane(formularioFornecedores);
-
         setVisible(true);
         createTable();
     }
-
     private void createTable() {
         List<Fornecedor> fornecedores = fornecedorDAO.findAll();
         Object[][] data = new Object[fornecedores.size()][3];
@@ -65,5 +55,4 @@ public class FormularioFornecedores extends JFrame {
                 new String[]{"ID", "Nome", "Telefone"}
         ));
     }
-
 }

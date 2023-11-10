@@ -1,4 +1,4 @@
-package application.FornedoresInterface;
+package application.Interfaces.FornedoresInterface;
 
 import model.dao.FornecedorDao;
 import model.dao.impl.FornecedorDaoJDBC;

@@ -1,4 +1,6 @@
-package application.FornedoresInterface;
+package application.Interfaces;
+import application.Interfaces.FornedoresInterface.FormularioFornecedores;
+import application.Interfaces.UsuariosInterface.FormularioUsuarios;
 
 import javax.swing.*;
 
@@ -28,6 +30,7 @@ public class MainFrame extends JFrame {
             this.dispose();
 
         });
+
         mainPanel.setVisible(true);
 
     }
