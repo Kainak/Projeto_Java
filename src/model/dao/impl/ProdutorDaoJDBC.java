@@ -21,15 +21,15 @@ public class ProdutorDaoJDBC implements ProdutorDao {
     public void insert(Produtor obj) {
 
         PreparedStatement st = null;
+        ResultSet rs = null;
+
         try {
             st = conn.prepareStatement(
                     "INSERT INTO produtor "
                             + "(nome, cpf, email, telefone, telefone2, cnpj, razaosocial, producao_propria) "
-                            + "VALUES "
-                            + "(?, ?, ?, ?, ?, ?, ?, ?)",
+                            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
 
-            st.setInt(1, obj.getIDprodutor());
             st.setString(1, obj.getNome());
             st.setString(2, obj.getCpf());
             st.setString(3, obj.getEmail());
@@ -42,25 +42,23 @@ public class ProdutorDaoJDBC implements ProdutorDao {
             int rowsAffected = st.executeUpdate();
 
             if (rowsAffected > 0) {
-                ResultSet rs = st.getGeneratedKeys();
+                rs = st.getGeneratedKeys();
                 if (rs.next()) {
                     int id = rs.getInt(1);
                     obj.setIDprodutor(id);
+                } else {
+                    throw new DbException("Erro ao obter o ID do produtor criado.");
                 }
-                DB.closeResultSet(rs);
+            } else {
+                throw new DbException("Nenhuma linha afetada! Falha ao inserir o produtor.");
             }
-            else {
-                throw new DbException("Erro.... =(");
-            }
-        }
-        catch (SQLException e) {
-            throw new DbException(e.getMessage());
-        }
-        finally {
+        } catch (SQLException e) {
+            throw new DbException("Erro ao inserir o produtor: " + e.getMessage());
+        } finally {
+            DB.closeResultSet(rs);
             DB.closeStatement(st);
         }
     }
-
 
     @Override
     public Produtor findById(Integer IDprodutor) {
