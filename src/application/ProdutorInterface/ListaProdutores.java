@@ -1,5 +1,6 @@
 package application.ProdutorInterface;
 
+import application.DocumentosInterface.ListaDocumentos;
 import application.FornedoresInterface.MainFrame;
 import db.DB;
 import model.dao.impl.ProdutorDao;
@@ -47,6 +48,12 @@ public class ListaProdutores extends JFrame {
             new DeletarProdutor();
             this.dispose();
         });
+
+        documentosButton.addActionListener(e -> {
+            new ListaDocumentos();
+            this.dispose();
+        });
+
         setContentPane(formularioProdutores);
 
         setVisible(true);

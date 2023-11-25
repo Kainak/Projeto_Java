@@ -10,7 +10,7 @@
     <children>
       <component id="cb4d3" class="javax.swing.JButton" binding="fornecedoresButton">
         <constraints>
-          <grid row="2" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Fornecedores"/>
@@ -45,7 +45,7 @@
       </component>
       <hspacer id="313d0">
         <constraints>
-          <grid row="2" column="1" row-span="2" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
       <component id="afdce" class="javax.swing.JButton" binding="produtoresButton">
@@ -54,6 +54,14 @@
         </constraints>
         <properties>
           <text value="Produtores"/>
+        </properties>
+      </component>
+      <component id="e1928" class="javax.swing.JButton" binding="documentosButton" default-binding="true">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Documentos"/>
         </properties>
       </component>
     </children>

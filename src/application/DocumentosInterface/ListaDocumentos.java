@@ -1,17 +1,18 @@
 package application.DocumentosInterface;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+
+import application.FornedoresInterface.MainFrame;
 import db.DB;
 import model.dao.impl.DocumentoDao;
 import model.dao.impl.DocumentoDaoJDBC;
-import model.entities.Documento;
 import model.dao.impl.ProdutorDao;
+import model.entities.Documento;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import application.FornedoresInterface.MainFrame;
-public class Lista extends JFrame {
+public class ListaDocumentos extends JFrame {
 
     private JPanel documentos;
     private JLabel Titulo;
@@ -26,7 +27,7 @@ public class Lista extends JFrame {
     private int idSelecionado;
     private ProdutorDao produtorDao;
 
-    public Lista() {
+    public ListaDocumentos() {
         setTitle("Documentos");
         setSize(650, 650);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -39,12 +40,12 @@ public class Lista extends JFrame {
         });
 
         adicionarButton.addActionListener(e -> {
-            new Adicionar();
+            new AdicionarDocumentos();
             this.dispose();
         });
 
         deletarButton1.addActionListener(e ->{
-            new Deletar(idSelecionado);
+            new DeletarDocumentos(idSelecionado);
             this.dispose();
         });
 

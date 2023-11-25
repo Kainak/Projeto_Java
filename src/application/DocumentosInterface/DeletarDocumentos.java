@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Deletar extends JFrame{
+public class DeletarDocumentos extends JFrame{
 
     private JPanel deletar;
     private JTextField idDocumento;
@@ -20,7 +20,7 @@ public class Deletar extends JFrame{
     private JTextField titulo;
     private DocumentoDao documentoDAO;
 
-    public Deletar (int idSelecionado){
+    public DeletarDocumentos(int idSelecionado){
         setTitle("Documentos");
         setSize(650, 650);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -42,7 +42,7 @@ public class Deletar extends JFrame{
         voltarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Lista();
+                new ListaDocumentos();
             }
         });
 

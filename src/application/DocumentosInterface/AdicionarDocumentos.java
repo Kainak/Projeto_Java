@@ -4,7 +4,6 @@ import db.DB;
 import model.dao.impl.DocumentoDaoJDBC;
 import javax.swing.*;
 import model.dao.impl.DocumentoDao;
-import model.dao.impl.ProdutorDao;
 import model.entities.Documento;
 import model.entities.Produtor;
 
@@ -19,7 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Adicionar extends JFrame{
+public class AdicionarDocumentos extends JFrame{
 
     private JButton procurarArquivoButton;
     private JTextField dataVencimento;
@@ -33,7 +32,7 @@ public class Adicionar extends JFrame{
     private String data_venc;
 
 
-    public Adicionar() {
+    public AdicionarDocumentos() {
         setTitle("Documentos");
         setSize(650, 650);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
