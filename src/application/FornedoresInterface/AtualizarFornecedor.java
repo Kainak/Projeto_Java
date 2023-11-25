@@ -44,12 +44,12 @@ public class AtualizarFornecedor extends JFrame {
                 atualizarFornecedor();
             }
         });
-        voltarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new FormularioFornecedores();
-            }
-        });
+//        voltarButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                new FormularioFornecedores();
+//            }
+//        });
     }
 
     private void buscarFornecedor() {

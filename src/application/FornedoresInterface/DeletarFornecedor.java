@@ -45,7 +45,7 @@ public class DeletarFornecedor extends JFrame {
         voltarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new FormularioFornecedores();
+                new ListaFornecedores();
             }
         });
     }

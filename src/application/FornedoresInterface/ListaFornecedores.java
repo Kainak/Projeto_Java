@@ -10,7 +10,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
-public class FormularioFornecedores extends JFrame {
+public class ListaFornecedores extends JFrame {
 
     private JPanel formularioFornecedores;
     private JButton adicionarFornecedorButton;
@@ -22,7 +22,7 @@ public class FormularioFornecedores extends JFrame {
 
     private FornecedorDao fornecedorDAO;
 
-    public FormularioFornecedores() {
+    public ListaFornecedores() {
         setTitle("Formulário de Fornecedores");
         setSize(650, 650);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
