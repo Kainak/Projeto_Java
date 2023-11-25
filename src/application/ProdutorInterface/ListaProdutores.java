@@ -19,6 +19,7 @@ public class ListaProdutores extends JFrame {
     private JButton voltarButton;
     private JTable tabelaProdutores;
     private JScrollPane categoriasProdutores;
+    private JButton documentosButton;
 
     private ProdutorDao produtorDAO;
 
