@@ -20,8 +20,11 @@ public class Produtor implements Serializable {
 
     }
 
-    public Produtor(Integer escolha, Object o) {
+    public Produtor(Integer escolha) {
     }
+
+//    public Produtor(Integer escolha, Object o) {
+//    }
 
     public Integer getIDprodutor() {
         return IDprodutor;
