@@ -73,10 +73,11 @@ public class DocumentoDaoJDBC implements DocumentoDao {
                 InputStream blobStream = rs.getBinaryStream("documento");
 
                 // Nome do arquivo de destino
-                String nomeDoArquivo = "arquivo_recuperado";
+                String nomeDoArquivo = "arquivo_recuperado.txt";
+                String diretorioAreaDeTrabalho = System.getProperty("user.home") + "/OneDrive/Área de Trabalho/";
 
                 // Usando Files.copy para salvar o BLOB em um arquivo
-                Path path = Paths.get(nomeDoArquivo);
+                Path path = Paths.get(diretorioAreaDeTrabalho + nomeDoArquivo);
                 Files.copy(blobStream, path, StandardCopyOption.REPLACE_EXISTING);
 
                 System.out.println("Arquivo BLOB recuperado com sucesso.");
@@ -116,6 +117,8 @@ public class DocumentoDaoJDBC implements DocumentoDao {
         Documento dec = new Documento();
         dec.setIDdocumentos(rs.getInt("IDdocumento"));
         dec.setTitulo(rs.getString("Titulo"));
+        dec.setData(rs.getDate("Data"));
+        dec.setData_venc(rs.getDate("Data_venc"));
         return dec;
     }
 
@@ -143,5 +146,30 @@ public class DocumentoDaoJDBC implements DocumentoDao {
             DB.closeResultSet(rs);
         }
     }
+
+    @Override
+    public Documento findById(int documentoId) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        Documento documento = null;
+
+        try {
+            st = conn.prepareStatement("SELECT * FROM documento WHERE IDdocumento = ?");
+            st.setInt(1, documentoId);
+            rs = st.executeQuery();
+
+            if (rs.next()) {
+                documento = instantiateDocumento(rs);
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
+        return documento;
+    }
+
+
 }
 

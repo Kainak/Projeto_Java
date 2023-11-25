@@ -105,7 +105,4 @@ public class Documento {
     public void setProdutor(int iDprodutor) {
     }
 
-    public void inserirDocumento(String filePath, String titulo, Date dataAtual, Date dataVencimento, Produtor iDprodutor) {
-    }
-
 }

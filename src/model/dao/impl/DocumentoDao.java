@@ -13,4 +13,6 @@ public interface DocumentoDao {
     void deleteById(int excluir);
 
     List<Documento> findByProdutorId(int produtorId);
+
+    Documento findById(int documentoId);
 }

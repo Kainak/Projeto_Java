@@ -1,6 +1,5 @@
 package application.FornedoresInterface;
 
-
 import model.dao.impl.FornecedorDao;
 import model.dao.impl.FornecedorDaoJDBC;
 import model.entities.Fornecedor;
@@ -46,6 +45,7 @@ public class FormularioFornecedores extends JFrame {
             new DeletarFornecedor();
             this.dispose();
         });
+
         setContentPane(formularioFornecedores);
 
         setVisible(true);

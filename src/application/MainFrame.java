@@ -2,7 +2,6 @@ package application;
 
 import model.dao.impl.ProdutorDao;
 import model.entities.Produtor;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
