@@ -5,9 +5,8 @@ import java.util.Objects;
 public class CategoriaFornecedores implements Serializable {
 
     private static final long serialVersion = 1L;
-
-    private Intenger categoriaid;
-    private Intenger nomecategoria;
+    private Integer IdCategoriaFornecedores;
+    private String nomeCategoria;
 
     public CategoriaFornecedores(){
 
@@ -15,18 +14,20 @@ public class CategoriaFornecedores implements Serializable {
 
 
 
-    public CategoriaFornecedores(Intenger categoriaid , Intenger nomecategoria){
+    public CategoriaFornecedores(Integer categoriaid , String nomecategoria){
         this.categoriaid = categoriaid;
         this.nomecategoria = nomecategoria;
     }
 
-    public Intenger getCategoriaid() {  return categoriaid; }
+    public Integer getCategoriaid() {  return categoriaid; }
 
-    public void SetCategoriaid ( Intenger categoriaid) { this.categoriaid = categoriaid; }
+    public void SetCategoriaid ( Integer categoriaid) { this.categoriaid = categoriaid; }
 
-    public string getNomecategoria () return nomecategoria;}
+    public void getNomecategoria ( Integer nomecategoria ) {
+        return nomecategoria; }
 
-    public voide SetNomecategoria (String nomecategoria) { this.nomecategoria = nomecategoria; }
+    public void SetNomecategoria (String nomecategoria) {
+        this.nomecategoria = nomecategoria; }
 
 
     @Override

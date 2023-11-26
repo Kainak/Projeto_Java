@@ -23,10 +23,11 @@ public class CategoriaFornecedoresDaoJDBC implements CategoriaFornecedoresDao {
         ResultSet rs = null;
         try {
             st = conn.prepareStatement(
-                    "INSERT INTO categoriafornecedore (nomecategoria) VALUES (?, ?)",
+                    "INSERT INTO categoriafornecedore (categoriaid, nomecategoria) VALUES (?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             );
 
+            st.setInt(1, obj.getCategoriaid());
             st.setString( obj.getNomecategoria());
 
             int rowsAffected = st.executeUpdate();
@@ -35,7 +36,7 @@ public class CategoriaFornecedoresDaoJDBC implements CategoriaFornecedoresDao {
                 rs = st.getGeneratedKeys();
                 if (rs.next()) {
                     int id = rs.getInt(1);
-                    obj.setId(id);
+                    obj.setCategoriaid(id);
                 }
             } else {
                 throw new DbException("Erro inesperado! Nenhuma linha afetada.");
@@ -52,7 +53,7 @@ public class CategoriaFornecedoresDaoJDBC implements CategoriaFornecedoresDao {
             PreparedStatement st = null;
             try {
                 st = conn.prepareStatement(
-                        "UPDATE categoriafornecedores SET nomecategoria = ?, WHERE categoriaid = ?"
+                        "UPDATE categoriafornecedores SET nomecategoria = ? WHERE categoriaid = ?"
                 );
 
                 st.setString(1, obj.getNomecategoria());
@@ -92,7 +93,7 @@ public class CategoriaFornecedoresDaoJDBC implements CategoriaFornecedoresDao {
                 st.setInt(1, categoriaid);
                 rs = st.executeQuery();
                 if (rs.next()) {
-                    Fornecedor obj = instantiateCategoriaFornecedores(rs);
+                    CategoriaFornecedores obj = instantiateCategoriaFornecedores(rs);
                     return obj;
                 }
                 return null;
