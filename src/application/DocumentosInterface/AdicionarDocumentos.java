@@ -4,9 +4,9 @@ import db.DB;
 import model.dao.impl.DocumentoDaoJDBC;
 import javax.swing.*;
 import model.dao.impl.DocumentoDao;
+import model.dao.impl.ProdutorDao;
 import model.entities.Documento;
 import model.entities.Produtor;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFileChooser;
@@ -18,8 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AdicionarDocumentos extends JFrame{
-
+public class Adicionar extends JFrame{
     private JButton procurarArquivoButton;
     private JTextField dataVencimento;
     private JButton adicionarArquivoButton;
@@ -32,22 +31,25 @@ public class AdicionarDocumentos extends JFrame{
     private String data_venc;
 
 
-    public AdicionarDocumentos() {
+    public Adicionar() {
         setTitle("Documentos");
         setSize(650, 650);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+
         documentoDao = new DocumentoDaoJDBC(DB.getConnection());
         procurarArquivoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser(); //INSTANCIA UM FILE CHOOSER
+                fileChooser.setCurrentDirectory(new File("."));//SELECIONA O ARQUIVO
 
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setCurrentDirectory(new File(".")); //sets current directory
                 int returnValue = fileChooser.showOpenDialog(null);
+
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
-                    caminho = String.valueOf(file);
+
+                    File file = new File(fileChooser.getSelectedFile().getAbsolutePath());                     System.out.println(caminho);
+                    caminho = String.valueOf(file); //SALVA NA VARIAVEL STRING O CAMINHO
                     System.out.println(caminho);
                     imprimirCaminho.setText(caminho);
                 }
@@ -63,29 +65,49 @@ public class AdicionarDocumentos extends JFrame{
         setContentPane(adicionar);
 
         voltarButton.addActionListener(e -> {
-            new MainFrame();
+            new Lista();
             this.dispose();
         });
 
     }
 
-    private void adicionar (){
+    private void adicionar(){
+
         Date dataAtual = new Date();
-        SimpleDateFormat formatoData = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
         Date data_venc_date = null;
-
         Produtor idProdutor = new Produtor();
-        int id = Integer.parseInt(idInformado.getText());
-        idProdutor.setIDprodutor(id);
 
+
+        //VERIFICA O ID
+        try {
+            int id = Integer.parseInt(idInformado.getText());
+            idProdutor.setIDprodutor(id);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Informe um ID válido!");
+            return; // Retorna se o ID não for um número válido
+        }
+
+        //VERIFICA A DATA
         data_venc = dataVencimento.getText();
         try {
+            formatoData.setLenient(false); // Define o SimpleDateFormat como estrito
+            formatoData.parse(data_venc); // Tenta fazer o parse da data
             data_venc_date = formatoData.parse(data_venc);
-        } catch (ParseException ex) {
-            throw new RuntimeException(ex);
+        } catch (Exception ex) {
+            //throw new RuntimeException(ex);
+            JOptionPane.showMessageDialog(this,"Data Inválida!");
+        }
+
+        //VERIFICA O CAMINHO
+        if (caminho == null || caminho.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Selecione um arquivo!");
+            return; // Retorna se o caminho do arquivo estiver vazio ou nulo
         }
 
         Documento documento = new Documento();
+
+        //VERIFICA A INSERÇÃO NO BANCO
         try {
             File file = new File(caminho);
 
@@ -93,7 +115,8 @@ public class AdicionarDocumentos extends JFrame{
                 System.out.println("O arquivo não existe.");
                 return;
             }
-            // Lê todos os bytes do arquivo
+
+            // LÊ TODOS OS BYTES DO ARQUIVO
             byte[] fileBytes = Files.readAllBytes(Paths.get(caminho));
             String titulo = file.getName();
             documento.setTitulo(titulo);
@@ -102,22 +125,24 @@ public class AdicionarDocumentos extends JFrame{
             System.out.println(dataAtual);
             documento.setData_venc(data_venc_date);
             System.out.println(data_venc_date);
+
             // Define os bytes do documento diretamente
             documento.setDocumento(new ByteArrayInputStream(fileBytes));
+
             System.out.println(caminho);
             documento.setProdutor(idProdutor);
             System.out.println(documento);
 
             // INSERE O DOCUMENTO NO BANCO
+
             documentoDao.insert(documento);
+
             System.out.println("Documento inserido!");
-            JOptionPane.showMessageDialog(this,
-                    "Adicionado com sucesso!");
+            JOptionPane.showMessageDialog(this, "Adicionado com sucesso!");
 
         } catch (Exception ex) {
             System.out.println("Erro ao carregar o arquivo: " + ex.getMessage());
-            JOptionPane.showMessageDialog(this,
-                    "Erro ao adicionar o arquivo!");
+            JOptionPane.showMessageDialog(this,"Erro ao adicionar o arquivo!");
         }
     }
 }
