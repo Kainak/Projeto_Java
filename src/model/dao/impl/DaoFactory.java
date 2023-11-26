@@ -12,7 +12,15 @@ public class DaoFactory {
 		return new FornecedorDaoJDBC(DB.getConnection());
 	}
 
-	public static DocumentoDao createDocumentoDao() {return new DocumentoDaoJDBC(DB.getConnection());}
+	public static DocumentoDao createDocumentoDao() {
+		return new DocumentoDaoJDBC(DB.getConnection());
+	}
 
-	public static UsuarioDao createUsuarioDao() {return new UsuarioDaoJDBC(DB.getConnection());}
+	public static UsuarioDao createUsuarioDao() {
+		return new UsuarioDaoJDBC(DB.getConnection());
+	}
+
+	public static CategoriaFornecedoresDao createCategoriaFornecedoresDao() {
+		return new CategoriaFornecedoresDaoJDBC(DB.getConnection());
+	}
 }

@@ -2,44 +2,49 @@ package model.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
+
 public class CategoriaFornecedores implements Serializable {
 
-    private static final long serialVersion = 1L;
+    private static final long serialVersionUID = 1L;
 
-    private Intenger categoriaid;
-    private Intenger nomecategoria;
+    private Integer categoriaid;
+    private String nomecategoria;
 
-    public CategoriaFornecedores(){
-
+    public CategoriaFornecedores() {
     }
 
-
-
-    public CategoriaFornecedores(Intenger categoriaid , Intenger nomecategoria){
+    public CategoriaFornecedores(Integer categoriaid, String nomecategoria) {
         this.categoriaid = categoriaid;
         this.nomecategoria = nomecategoria;
     }
 
-    public Intenger getCategoriaid() {  return categoriaid; }
+    public Integer getCategoriaid() {
+        return categoriaid;
+    }
 
-    public void SetCategoriaid ( Intenger categoriaid) { this.categoriaid = categoriaid; }
+    public void setCategoriaid(Integer categoriaid) {
+        this.categoriaid = categoriaid;
+    }
 
-    public string getNomecategoria () return nomecategoria;}
+    public String getNomecategoria() {
+        return nomecategoria;
+    }
 
-    public voide SetNomecategoria (String nomecategoria) { this.nomecategoria = nomecategoria; }
-
+    public void setNomecategoria(String nomecategoria) {
+        this.nomecategoria = nomecategoria;
+    }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        Fornecedor fornecedor = (CategoriaFornecedores) obj;
-        return Objects.equals(categoriaid, CategoriaFornecedores.categoriaid) &&
-                Objects.equals(nomecategoria, CategoriaFornecedores.nomecategoria)
+        CategoriaFornecedores categoria = (CategoriaFornecedores) obj;
+        return Objects.equals(categoriaid, categoria.categoriaid) &&
+                Objects.equals(nomecategoria, categoria.nomecategoria);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(categoriaid, nomecategoria);
     }
-
 }
