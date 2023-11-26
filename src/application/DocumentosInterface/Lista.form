@@ -3,22 +3,16 @@
   <grid id="27dc6" binding="documentos" layout-manager="GridLayoutManager" row-count="5" column-count="12" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="558" height="400"/>
+      <xy x="20" y="20" width="524" height="358"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <component id="44250" class="javax.swing.JLabel" binding="Titulo">
-        <constraints>
-          <grid row="1" column="1" row-span="1" col-span="10" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Documentos"/>
-        </properties>
-      </component>
       <component id="4a0ab" class="javax.swing.JButton" binding="voltar">
         <constraints>
-          <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="115" height="30"/>
+          </grid>
         </constraints>
         <properties>
           <text value="Voltar"/>
@@ -26,7 +20,7 @@
       </component>
       <scrollpane id="83764">
         <constraints>
-          <grid row="4" column="1" row-span="1" col-span="10" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="1" row-span="2" col-span="10" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
@@ -39,7 +33,7 @@
       </scrollpane>
       <component id="e4258" class="javax.swing.JTextField" binding="idProdutor">
         <constraints>
-          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="2" column="2" row-span="1" col-span="7" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
@@ -47,9 +41,19 @@
           <text value=""/>
         </properties>
       </component>
+      <component id="4901a" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="115" height="17"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Digite o ID do Produtor"/>
+        </properties>
+      </component>
       <component id="fe999" class="javax.swing.JButton" binding="procurarProdutor">
         <constraints>
-          <grid row="3" column="3" row-span="1" col-span="7" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="OK"/>
@@ -57,7 +61,7 @@
       </component>
       <component id="3e48b" class="javax.swing.JButton" binding="adicionarButton" default-binding="true">
         <constraints>
-          <grid row="2" column="3" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="2" row-span="1" col-span="6" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Adicionar"/>
@@ -65,35 +69,38 @@
       </component>
       <component id="dac72" class="javax.swing.JButton" binding="deletarButton1" default-binding="true">
         <constraints>
-          <grid row="2" column="6" row-span="1" col-span="5" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Deletar"/>
         </properties>
       </component>
-      <component id="4901a" class="javax.swing.JLabel">
+      <component id="ac5a5" class="javax.swing.JButton" binding="downloadButton" default-binding="true">
         <constraints>
-          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="8" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Digite o ID do Produtor"/>
+          <text value="Download"/>
         </properties>
       </component>
-      <hspacer id="5d86e">
+      <component id="44250" class="javax.swing.JLabel" binding="Titulo">
         <constraints>
-          <grid row="4" column="11" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="7" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Documentos"/>
+        </properties>
+      </component>
+      <hspacer id="5348c">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
-      <hspacer id="5f9f1">
+      <hspacer id="5397b">
         <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="11" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
-      <vspacer id="3d897">
-        <constraints>
-          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </vspacer>
     </children>
   </grid>
 </form>

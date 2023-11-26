@@ -1,10 +1,8 @@
 package model.dao.impl;
-
 import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
 import model.entities.Documento;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,7 +15,6 @@ import java.util.Scanner;
 
 
 public class DocumentoDaoJDBC implements DocumentoDao {
-
     private Connection conn;
 
     public DocumentoDaoJDBC(Connection conn) {
@@ -65,15 +62,19 @@ public class DocumentoDaoJDBC implements DocumentoDao {
         ResultSet rs = null;
 
         try {
-            st = conn.prepareStatement("SELECT documento FROM documento WHERE IDdocumento = ?");
+            st = conn.prepareStatement("SELECT documento, titulo FROM documento WHERE IDdocumento = ?");
             st.setInt(1, recuperar);
             rs = st.executeQuery();
+
             if (rs.next()) {
-                // Recupere o BLOB da coluna "documento"
+                // COLOCA O BLOB NA VARIAVEL NA COLUNA DOCUMENTO
                 InputStream blobStream = rs.getBinaryStream("documento");
 
                 // Nome do arquivo de destino
-                String nomeDoArquivo = "arquivo_recuperado.txt";
+
+                //String nomeDoArquivo = "arquivo_recuperado.txt";
+                String nomeDoArquivo = rs.getString("titulo");
+
                 String diretorioAreaDeTrabalho = System.getProperty("user.home") + "/OneDrive/Área de Trabalho/";
 
                 // Usando Files.copy para salvar o BLOB em um arquivo
@@ -152,7 +153,6 @@ public class DocumentoDaoJDBC implements DocumentoDao {
         PreparedStatement st = null;
         ResultSet rs = null;
         Documento documento = null;
-
         try {
             st = conn.prepareStatement("SELECT * FROM documento WHERE IDdocumento = ?");
             st.setInt(1, documentoId);
