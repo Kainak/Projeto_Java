@@ -1,24 +1,22 @@
 package application.DocumentosInterface;
-import application.FornedoresInterface.MainFrame;
+
 import db.DB;
-import model.dao.impl.DocumentoDaoJDBC;
-import javax.swing.*;
 import model.dao.impl.DocumentoDao;
-import model.dao.impl.ProdutorDao;
+import model.dao.impl.DocumentoDaoJDBC;
 import model.entities.Documento;
 import model.entities.Produtor;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JFileChooser;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Adicionar extends JFrame{
+public class AdicionarDocumentos extends JFrame{
     private JButton procurarArquivoButton;
     private JTextField dataVencimento;
     private JButton adicionarArquivoButton;
@@ -31,7 +29,7 @@ public class Adicionar extends JFrame{
     private String data_venc;
 
 
-    public Adicionar() {
+    public AdicionarDocumentos() {
         setTitle("Documentos");
         setSize(650, 650);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -65,7 +63,7 @@ public class Adicionar extends JFrame{
         setContentPane(adicionar);
 
         voltarButton.addActionListener(e -> {
-            new Lista();
+            new ListaDocumentos();
             this.dispose();
         });
 
