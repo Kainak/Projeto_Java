@@ -7,12 +7,14 @@ import java.util.List;
 public interface CategoriaFornecedoresDao {
 
     void insert(CategoriaFornecedores obj);
-    CategoriaFornecedores findById(Integer IdCategoriaFornecedores);
+
+    CategoriaFornecedores findById(Integer idCategoriaFornecedores);
 
     List<CategoriaFornecedores> findAll();
 
-    void deleteById(Integer IdCategoriaFornecedores);
+    void deleteById(Integer idCategoriaFornecedores);
 
     void update(CategoriaFornecedores obj);
+
 
 }

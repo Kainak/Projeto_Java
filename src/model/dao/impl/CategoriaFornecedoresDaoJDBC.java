@@ -1,13 +1,13 @@
 package model.dao.impl;
 
+import db.DB;
+import db.DbException;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.entities.CategoriaFornecedores;
-import db.DB;
-import db.DbException;
-import model.entities.Fornecedor;
 
 public class CategoriaFornecedoresDaoJDBC implements CategoriaFornecedoresDao {
 
@@ -23,12 +23,11 @@ public class CategoriaFornecedoresDaoJDBC implements CategoriaFornecedoresDao {
         ResultSet rs = null;
         try {
             st = conn.prepareStatement(
-                    "INSERT INTO categoriafornecedore (categoriaid, nomecategoria) VALUES (?, ?)",
+                    "INSERT INTO CategoriaFornecedores(IdCategoriaFornecedores, nomeCategoria) VALUES (?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             );
 
-            st.setInt(1, obj.getCategoriaid());
-            st.setString( obj.getNomecategoria());
+            st.setString(1, obj.getNomeCategoria());
 
             int rowsAffected = st.executeUpdate();
 
@@ -36,7 +35,7 @@ public class CategoriaFornecedoresDaoJDBC implements CategoriaFornecedoresDao {
                 rs = st.getGeneratedKeys();
                 if (rs.next()) {
                     int id = rs.getInt(1);
-                    obj.setCategoriaid(id);
+                    obj.setIdCategoriaFornecedores(id);
                 }
             } else {
                 throw new DbException("Erro inesperado! Nenhuma linha afetada.");
@@ -47,53 +46,60 @@ public class CategoriaFornecedoresDaoJDBC implements CategoriaFornecedoresDao {
             DB.closeResultSet(rs);
             DB.closeStatement(st);
         }
+    }
 
         @Override
         public void update(CategoriaFornecedores obj) {
             PreparedStatement st = null;
             try {
                 st = conn.prepareStatement(
-                        "UPDATE categoriafornecedores SET nomecategoria = ? WHERE categoriaid = ?"
+                        "UPDATE CategoriaFornecedores SET nomeCategoria = ? WHERE IdCategoriaFornecedores = ?"
                 );
 
-                st.setString(1, obj.getNomecategoria());
-                st.setInt(2, obj.getCategoriaid());
 
-                st.executeUpdate();
-            } catch (SQLException e) {
+            st.setString(1, obj.getNomeCategoria());
+            st.setInt(2, obj.getIdCategoriaFornecedores());
+
+            st.executeUpdate();
+            }
+            catch (SQLException e) {
                 throw new DbException(e.getMessage());
-            } finally {
+            }
+            finally {
                 DB.closeStatement(st);
             }
         }
 
         @Override
-        public void deleteById(Integer categoriaid) {
+        public void deleteById(Integer id) {
             PreparedStatement st = null;
             try {
-                st = conn.prepareStatement("DELETE FROM categoriafornecedores WHERE categoriaid = ?");
+                st = conn.prepareStatement("DELETE FROM CategoriaFornecedores WHERE IdCategoriaFornecedores = ?");
 
-                st.setInt(1, categoriaid);
+                st.setInt(1, id);
 
                 st.executeUpdate();
-            } catch (SQLException e) {
+            }
+            catch (SQLException e) {
                 throw new DbException(e.getMessage());
-            } finally {
+            }
+            finally {
                 DB.closeStatement(st);
             }
         }
 
-
         @Override
-        public CategoriaFornecedores findByCategoriaid(Integer categoriaid) {
+        public CategoriaFornecedores findById(Integer id) {
             PreparedStatement st = null;
             ResultSet rs = null;
             try {
-                st = conn.prepareStatement("SELECT * FROM categoriafornecedores WHERE categoriaid = ?");
-                st.setInt(1, categoriaid);
+                st = conn.prepareStatement("SELECT * FROM CategoriaFornecedores WHERE IdCategoriaFornecedores = ?");
+                st.setInt(1, id);
                 rs = st.executeQuery();
                 if (rs.next()) {
-                    CategoriaFornecedores obj = instantiateCategoriaFornecedores(rs);
+                    CategoriaFornecedores obj = new CategoriaFornecedores();
+                    obj.setIdCategoriaFornecedores(rs.getInt("IdCategoriaFornecedores"));
+                    obj.setNomeCategoria(rs.getString("nomeCategoria"));
                     return obj;
                 }
                 return null;
@@ -105,25 +111,20 @@ public class CategoriaFornecedoresDaoJDBC implements CategoriaFornecedoresDao {
             }
         }
 
-        private Fornecedor instantiateCategoriaFornecedores(ResultSet rs) throws SQLException {
-            Fornecedor obj = new CategoriaFornecedores();
-            obj.setId(rs.getInt("categoriaid"));
-            obj.setNome(rs.getString("nomecategoria"));
-            return obj;
-        }
-
         @Override
         public List<CategoriaFornecedores> findAll() {
             PreparedStatement st = null;
             ResultSet rs = null;
             try {
-                st = conn.prepareStatement("SELECT * FROM categoriafornecedores");
+                st = conn.prepareStatement("SELECT * FROM CategoriaFornecedores ORDER BY IdCategoriaFornecedores");
                 rs = st.executeQuery();
 
                 List<CategoriaFornecedores> list = new ArrayList<>();
 
                 while (rs.next()) {
-                    CategoriaFornecedores obj = instantiateCategoriaFornecedores(rs);
+                    CategoriaFornecedores obj = new CategoriaFornecedores();
+                    obj.setIdCategoriaFornecedores(rs.getInt("IdCategoriaFornecedores"));
+                    obj.setNomeCategoria(rs.getString("nomeCategoria"));
                     list.add(obj);
                 }
                 return list;
@@ -134,5 +135,4 @@ public class CategoriaFornecedoresDaoJDBC implements CategoriaFornecedoresDao {
                 DB.closeResultSet(rs);
             }
         }
-    }
-
+}

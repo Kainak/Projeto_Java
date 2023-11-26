@@ -6,7 +6,6 @@ import java.util.Objects;
 
 public class Documento {
     public Documento() {
-
     }
 
     @Override
@@ -102,4 +101,8 @@ public class Documento {
     public Produtor getProdutor() {
         return produtor;
     }
+
+    public void setProdutor(int iDprodutor) {
+    }
+
 }

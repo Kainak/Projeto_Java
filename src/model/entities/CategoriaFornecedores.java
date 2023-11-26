@@ -2,45 +2,50 @@ package model.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
+
 public class CategoriaFornecedores implements Serializable {
 
+
     private static final long serialVersion = 1L;
-    private Integer IdCategoriaFornecedores;
+    private Integer idCategoriaFornecedores;
     private String nomeCategoria;
+    
+    public CategoriaFornecedores() {
+    }
+    
+    public CategoriaFornecedores(Integer idCategoriaFornecedores, String nomeCategoria) {
 
-    public CategoriaFornecedores(){
-
+        this.idCategoriaFornecedores = idCategoriaFornecedores;
+        this.nomeCategoria = nomeCategoria;
     }
 
+    public Integer getIdCategoriaFornecedores() {  return idCategoriaFornecedores; }
 
+    public void SetIdCategoriaFornecedores ( Integer idCategoriaFornecedores) { this.idCategoriaFornecedores = idCategoriaFornecedores; }
 
-    public CategoriaFornecedores(Integer categoriaid , String nomecategoria){
-        this.categoriaid = categoriaid;
-        this.nomecategoria = nomecategoria;
-    }
+    public String getNomeCategoria () {
+        return nomeCategoria;}
 
-    public Integer getCategoriaid() {  return categoriaid; }
-
-    public void SetCategoriaid ( Integer categoriaid) { this.categoriaid = categoriaid; }
-
-    public void getNomecategoria ( Integer nomecategoria ) {
-        return nomecategoria; }
-
-    public void SetNomecategoria (String nomecategoria) {
-        this.nomecategoria = nomecategoria; }
-
-
+    public void SetNomeCategoria (String nomeCategoria) {
+        this.nomeCategoria = nomeCategoria; }
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        Fornecedor fornecedor = (CategoriaFornecedores) obj;
-        return Objects.equals(categoriaid, CategoriaFornecedores.categoriaid) &&
-                Objects.equals(nomecategoria, CategoriaFornecedores.nomecategoria)
-    }
-    @Override
-    public int hashCode() {
-        return Objects.hash(categoriaid, nomecategoria);
+        CategoriaFornecedores categoria = (CategoriaFornecedores) obj;
+        return Objects.equals(idCategoriaFornecedores, categoria.idCategoriaFornecedores) &&
+                Objects.equals(nomeCategoria, categoria.nomeCategoria);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(idCategoriaFornecedores, nomeCategoria);
+    }
+
+    public void setIdCategoriaFornecedores(int id) {
+    }
+
+    public void setNomeCategoria(String nomeCategoria) {
+    }
 }
