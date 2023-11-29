@@ -2,6 +2,7 @@ package application.FornedoresInterface;
 
 import application.DocumentosInterface.ListaDocumentos;
 import application.ProdutorInterface.ListaProdutores;
+import application.UsuariosInterface.ListaUsuarios;
 
 import javax.swing.*;
 
@@ -34,7 +35,10 @@ public class MainFrame extends JFrame {
             new ListaDocumentos();
             this.dispose();
         });
-
+        usuariosButton.addActionListener(e -> {
+            new ListaUsuarios();
+            this.dispose();
+        });
 
         mainPanel.setVisible(true);
     }

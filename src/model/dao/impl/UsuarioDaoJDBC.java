@@ -3,7 +3,7 @@ package model.dao.impl;
 import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
-import model.entities.Fornecedor;
+import model.dao.impl.UsuarioDao;
 import model.entities.Usuario;
 
 import java.sql.Connection;
@@ -20,151 +20,102 @@ public class UsuarioDaoJDBC implements UsuarioDao {
         this.conn = conn;
     }
 
-    private Usuario instantiateUsuario(ResultSet rs) throws SQLException {
-        Usuario obj = new Usuario();
-        obj.setId(rs.getInt("Id"));
-        obj.setEmail(rs.getString("Email"));
-        obj.setPassword(rs.getString("Password"));
-        return obj;
-    }
-
-    @Override
-    public List<Usuario> findAll() {
-        PreparedStatement st = null;
-        ResultSet rs = null;
-        try {
-            st = conn.prepareStatement("SELECT * FROM usuario");
-            rs = st.executeQuery();
-
-            List<Usuario> list = new ArrayList<>();
-
-            while (rs.next()) {
-                Usuario obj = instantiateUsuario(rs);
-                list.add(obj);
-            }
-            return list;
-        } catch (SQLException e) {
-            throw new DbException(e.getMessage());
-        } finally {
-            DB.closeStatement(st);
-            DB.closeResultSet(rs);
-        }
-    }
-
     public Usuario findById(Integer id) {
         PreparedStatement st = null;
         ResultSet rs = null;
 
-        Usuario var5;
         try {
-            st = this.conn.prepareStatement("SELECT * FROM usuario WHERE Id = ?");
+            st = this.conn.prepareStatement("SELECT * FROM usuarios WHERE Id = ?");
             st.setInt(1, id);
             rs = st.executeQuery();
-            Usuario obj;
-            if (!rs.next()) {
-                obj = null;
+            if (rs.next()) {
+                Usuario obj = new Usuario();
+                obj.setId(rs.getInt("Id"));
+                obj.setEmail(rs.getString("Email"));
+                obj.setPassword(rs.getString("Password"));
                 return obj;
             }
-
-            obj = new Usuario();
-            obj.setId(rs.getInt("Id"));
-            obj.setEmail(rs.getString("Email"));
-            obj.setPassword(rs.getString("Password"));
-            var5 = obj;
+            return null;
         } catch (SQLException var9) {
             throw new DbException(var9.getMessage());
         } finally {
             DB.closeResultSet(rs);
+            DB.closeStatement(st);
         }
-
-        return var5;
     }
 
-    public Usuario findEmailSenha(String email, String senha) {
+    public List<Usuario> findAll() {
         PreparedStatement st = null;
         ResultSet rs = null;
 
-        Usuario var5;
         try {
-            st = this.conn.prepareStatement("SELECT * FROM usuario WHERE Email = ? AND Password = ?");
-            st.setString(1, email);
-            st.setString(2, senha);
+            st = this.conn.prepareStatement("SELECT * FROM usuarios ORDER BY Email");
             rs = st.executeQuery();
-            Usuario obj;
-            if (!rs.next()) {
-                obj = null;
-                return obj;
+            List<Usuario> list = new ArrayList<>();
+
+            while(rs.next()) {
+                Usuario obj = new Usuario();
+                obj.setId(rs.getInt("Id"));
+                obj.setEmail(rs.getString("Email"));
+                obj.setPassword(rs.getString("Password"));
+                list.add(obj);
             }
 
-            obj = new Usuario();
-            obj.setId(rs.getInt("Id"));
-            obj.setEmail(rs.getString("Email"));
-            obj.setPassword(rs.getString("Password"));
-            var5 = obj;
-        } catch (SQLException var9) {
-            throw new DbException(var9.getMessage());
+            return list;
+        } catch (SQLException var8) {
+            throw new DbException(var8.getMessage());
         } finally {
             DB.closeResultSet(rs);
+            DB.closeStatement(st);
         }
-
-        return var5;
     }
 
     public void insert(Usuario obj) {
         PreparedStatement st = null;
 
         try {
-            st = this.conn.prepareStatement("INSERT INTO usuario (Email, Password) VALUES (?, ?)", 1);
-            st.setString(1, obj.getEmailUsuario());
-            st.setString(2, obj.getPasswordUsuario());
+            st = this.conn.prepareStatement("INSERT INTO usuarios (Email, Password) VALUES (?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            st.setString(1, obj.getEmail());
+            st.setString(2, obj.getPassword());
             int rowsAffected = st.executeUpdate();
-            if (rowsAffected <= 0) {
+            if (rowsAffected > 0) {
+                ResultSet rs = st.getGeneratedKeys();
+                if (rs.next()) {
+                    int id = rs.getInt(1);
+                    obj.setId(id);
+                }
+                DB.closeResultSet(rs);
+            } else {
                 throw new DbException("Unexpected error! No rows affected!");
-            }
-
-            ResultSet rs = st.getGeneratedKeys();
-            if (rs.next()) {
-                int id = rs.getInt(1);
-                obj.setId(id);
             }
         } catch (SQLException var9) {
             throw new DbException(var9.getMessage());
         } finally {
             DB.closeStatement(st);
         }
-
     }
 
     public void update(Usuario obj) {
         PreparedStatement st = null;
 
         try {
-            st = this.conn.prepareStatement("UPDATE usuario (Email, Password) VALUES (?, ?)", 1);
-            st.setString(1, obj.getEmailUsuario());
-            st.setString(2, obj.getPasswordUsuario());
-            int rowsAffected = st.executeUpdate();
-            if (rowsAffected <= 0) {
-                throw new DbException("Unexpected error! No rows affected!");
-            }
-
-            ResultSet rs = st.getGeneratedKeys();
-            if (rs.next()) {
-                int id = rs.getInt(1);
-                obj.setId(id);
-            }
-        } catch (SQLException var9) {
-            throw new DbException(var9.getMessage());
+            st = this.conn.prepareStatement("UPDATE usuarios SET Email = ?, Password = ? WHERE Id = ?");
+            st.setString(1, obj.getEmail());
+            st.setString(2, obj.getPassword());
+            st.setInt(3, obj.getId());
+            st.executeUpdate();
+        } catch (SQLException var7) {
+            throw new DbException(var7.getMessage());
         } finally {
             DB.closeStatement(st);
         }
-
     }
 
     public void deleteById(Integer id) {
         PreparedStatement st = null;
 
         try {
-            st = this.conn.prepareStatement("DELETE FROM usuario WHERE Id = ?");
+            st = this.conn.prepareStatement("DELETE FROM usuarios WHERE Id = ?");
             st.setInt(1, id);
             st.executeUpdate();
         } catch (SQLException var7) {
@@ -172,6 +123,5 @@ public class UsuarioDaoJDBC implements UsuarioDao {
         } finally {
             DB.closeStatement(st);
         }
-
     }
 }

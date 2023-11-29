@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Usuario implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private Integer id;
     private String email;
     private String password;
@@ -17,46 +20,49 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
-    public Integer getIDUsuario() {
-        return this.id;
-    }
-
-    public String getEmailUsuario() {
-        return this.email;
-    }
-
-    public String getPasswordUsuario() {
-        return this.password;
+    public Integer getId() {
+        return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
+    @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        } else if (obj != null && this.getClass() == obj.getClass()) {
-            Usuario usuario = (Usuario)obj;
-            return Objects.equals(this.id, usuario.id) && Objects.equals(this.email, usuario.email);
-        } else {
-            return false;
-        }
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Usuario usuario = (Usuario) obj;
+        return Objects.equals(id, usuario.id) && Objects.equals(email, usuario.email) && Objects.equals(password, usuario.password);
     }
 
+    @Override
     public int hashCode() {
-        return Objects.hash(new Object[]{this.id, this.email, this.password});
+        return Objects.hash(id, email, password);
     }
 
+    @Override
     public String toString() {
-        return "usuario{id=" + this.id + ", email='" + this.email + '\'' + ", password='" + this.password + '\'' + '}';
+        return "Usuario{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
