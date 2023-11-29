@@ -93,11 +93,20 @@ public class ListaFornecedores extends JFrame {
             data[i][0] = fornecedores.get(i).getId();
             data[i][1] = fornecedores.get(i).getNome();
             data[i][2] = fornecedores.get(i).getTelefone();
-            data[i][3] = fornecedores.get(i).getCategoria();
+            
+            int categoriaId = fornecedores.get(i).getCategoriaid();
+            CategoriaFornecedores categoria = categoriaDAO.findById(categoriaId);
+
+
+            String nomeCategoria = (categoria != null) ? categoria.getNome() : "Categoria não encontrada";
+
+            data[i][3] = nomeCategoria;
         }
         tabelaFornecedores.setModel(new DefaultTableModel(
                 data,
                 new String[]{"ID", "Nome", "Telefone", "Categoria"}
         ));
     }
+
+
 }
