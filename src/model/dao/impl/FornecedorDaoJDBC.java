@@ -4,7 +4,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import model.entities.Fornecedor;
 import db.DB;
 import db.DbException;
@@ -17,19 +16,19 @@ public class FornecedorDaoJDBC implements FornecedorDao {
         this.conn = conn;
     }
 
-
     @Override
     public void insert(Fornecedor obj) {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
             st = conn.prepareStatement(
-                    "INSERT INTO fornecedores (nome, telefone) VALUES (?, ?)",
+                    "INSERT INTO fornecedores (nome, telefone, categoriaid) VALUES (?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             );
 
             st.setString(1, obj.getNome());
             st.setString(2, obj.getTelefone());
+            st.setInt(3, obj.getCategoriaid());
 
             int rowsAffected = st.executeUpdate();
 
@@ -50,19 +49,18 @@ public class FornecedorDaoJDBC implements FornecedorDao {
         }
     }
 
-
-
     @Override
     public void update(Fornecedor obj) {
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement(
-                    "UPDATE fornecedores SET nome = ?, telefone = ? WHERE id = ?"
+                    "UPDATE fornecedores SET nome = ?, telefone = ?, categoriaid = ? WHERE id = ?"
             );
 
             st.setString(1, obj.getNome());
             st.setString(2, obj.getTelefone());
-            st.setInt(3, obj.getId());
+            st.setInt(3, obj.getCategoriaid());
+            st.setInt(4, obj.getId());
 
             st.executeUpdate();
         } catch (SQLException e) {
@@ -109,14 +107,6 @@ public class FornecedorDaoJDBC implements FornecedorDao {
         }
     }
 
-    private Fornecedor instantiateFornecedor(ResultSet rs) throws SQLException {
-        Fornecedor obj = new Fornecedor();
-        obj.setId(rs.getInt("id"));
-        obj.setNome(rs.getString("nome"));
-        obj.setTelefone(rs.getString("telefone"));
-        return obj;
-    }
-
     @Override
     public List<Fornecedor> findAll() {
         PreparedStatement st = null;
@@ -138,5 +128,43 @@ public class FornecedorDaoJDBC implements FornecedorDao {
             DB.closeStatement(st);
             DB.closeResultSet(rs);
         }
+    }
+
+    @Override
+    public List<Fornecedor> findByCategoria(String categoria) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement(
+                    "SELECT f.* FROM fornecedores f " +
+                            "INNER JOIN categoriafornecedores c ON f.categoriaid = c.categoriaid " +
+                            "WHERE c.nomecategoria = ?"
+            );
+            st.setString(1, categoria);
+            rs = st.executeQuery();
+
+            List<Fornecedor> list = new ArrayList<>();
+
+            while (rs.next()) {
+                Fornecedor obj = instantiateFornecedor(rs);
+                list.add(obj);
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
+
+
+    private Fornecedor instantiateFornecedor(ResultSet rs) throws SQLException {
+        Fornecedor obj = new Fornecedor();
+        obj.setId(rs.getInt("id"));
+        obj.setNome(rs.getString("nome"));
+        obj.setTelefone(rs.getString("telefone"));
+        obj.setCategoriaid(rs.getInt("categoriaid"));
+        return obj;
     }
 }

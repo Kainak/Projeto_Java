@@ -10,4 +10,5 @@ public interface FornecedorDao {
     List<Fornecedor> findAll();
     void deleteById(Integer id);
     void update(Fornecedor obj);
+    List<Fornecedor> findByCategoria(String categoria); // novo método
 }
