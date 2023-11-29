@@ -5,30 +5,36 @@ import java.util.Objects;
 
 public class CategoriaFornecedores implements Serializable {
 
+    private static final long serialVersionUID = 1L;
 
-    private static final long serialVersion = 1L;
     private Integer idCategoriaFornecedores;
     private String nomeCategoria;
-    
-    public CategoriaFornecedores() {
-    }
-    
-    public CategoriaFornecedores(Integer idCategoriaFornecedores, String nomeCategoria) {
 
+    public CategoriaFornecedores() {
+
+    }
+
+    public CategoriaFornecedores(Integer idCategoriaFornecedores, String nomeCategoria) {
         this.idCategoriaFornecedores = idCategoriaFornecedores;
         this.nomeCategoria = nomeCategoria;
     }
 
-    public Integer getIdCategoriaFornecedores() {  return idCategoriaFornecedores; }
+    public Integer getId() {
+        return idCategoriaFornecedores;
+    }
 
-    public void SetIdCategoriaFornecedores ( Integer idCategoriaFornecedores) { this.idCategoriaFornecedores = idCategoriaFornecedores; }
+    public void setId(Integer idCategoriaFornecedores) {
+        this.idCategoriaFornecedores = idCategoriaFornecedores;
+    }
 
-    public String getNomeCategoria () {
-        return nomeCategoria;}
+    public String getNome() {
+        return nomeCategoria;
+    }
 
-    public void SetNomeCategoria (String nomeCategoria) {
-        this.nomeCategoria = nomeCategoria; }
-    
+    public void setNome(String nomeCategoria) {
+        this.nomeCategoria = nomeCategoria;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -43,9 +49,11 @@ public class CategoriaFornecedores implements Serializable {
         return Objects.hash(idCategoriaFornecedores, nomeCategoria);
     }
 
-    public void setIdCategoriaFornecedores(int id) {
-    }
-
-    public void setNomeCategoria(String nomeCategoria) {
+    @Override
+    public String toString() {
+        return "CategoriaFornecedores{" +
+                "idCategoriaFornecedores=" + idCategoriaFornecedores +
+                ", nomeCategoria='" + nomeCategoria + '\'' +
+                '}';
     }
 }

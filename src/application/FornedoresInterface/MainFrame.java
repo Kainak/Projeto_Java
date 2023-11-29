@@ -2,6 +2,7 @@ package application.FornedoresInterface;
 
 import application.DocumentosInterface.ListaDocumentos;
 import application.ProdutorInterface.ListaProdutores;
+import application.CategoriaFornecedores.ListaCategoria;
 
 import javax.swing.*;
 
@@ -10,6 +11,7 @@ public class MainFrame extends JFrame {
     private JButton produtoresButton;
     private JPanel mainPanel;
     private JButton documentosButton;
+    private JButton categoriasButton;
     private JButton usuariosButton;
 
     public MainFrame() {
@@ -32,6 +34,10 @@ public class MainFrame extends JFrame {
 
         documentosButton.addActionListener(e -> {
             new ListaDocumentos();
+            this.dispose();
+        });
+        categoriasButton.addActionListener(e -> {
+            new ListaCategoria();
             this.dispose();
         });
 

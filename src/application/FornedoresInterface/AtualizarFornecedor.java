@@ -1,5 +1,6 @@
 package application.FornedoresInterface;
 
+
 import model.dao.impl.FornecedorDao;
 import model.dao.impl.FornecedorDaoJDBC;
 import model.entities.Fornecedor;
@@ -44,12 +45,14 @@ public class AtualizarFornecedor extends JFrame {
                 atualizarFornecedor();
             }
         });
-//        voltarButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                new FormularioFornecedores();
-//            }
-//        });
+      voltarButton.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               new ListaFornecedores();
+
+           }
+
+       });
     }
 
     private void buscarFornecedor() {
