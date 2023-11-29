@@ -23,6 +23,7 @@ public class ListaDocumentos extends JFrame {
     private JTextField idProdutor;
     private JButton procurarProdutor;
     private JButton downloadButton;
+    private JButton atualizarButton;
     private DocumentoDao documentoDAO;
     private Integer idDocumento;
 
