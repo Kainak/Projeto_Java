@@ -3,6 +3,7 @@ package model.dao.impl;
 import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
+import model.entities.Fornecedor;
 import model.entities.Usuario;
 
 import java.sql.Connection;
@@ -17,6 +18,37 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 
     public UsuarioDaoJDBC(Connection conn) {
         this.conn = conn;
+    }
+
+    private Usuario instantiateUsuario(ResultSet rs) throws SQLException {
+        Usuario obj = new Usuario();
+        obj.setId(rs.getInt("Id"));
+        obj.setEmail(rs.getString("Email"));
+        obj.setPassword(rs.getString("Password"));
+        return obj;
+    }
+
+    @Override
+    public List<Usuario> findAll() {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement("SELECT * FROM usuario");
+            rs = st.executeQuery();
+
+            List<Usuario> list = new ArrayList<>();
+
+            while (rs.next()) {
+                Usuario obj = instantiateUsuario(rs);
+                list.add(obj);
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     public Usuario findById(Integer id) {
@@ -48,30 +80,34 @@ public class UsuarioDaoJDBC implements UsuarioDao {
         return var5;
     }
 
-    public List<Usuario> findAll() {
+    public Usuario findEmailSenha(String email, String senha) {
         PreparedStatement st = null;
         ResultSet rs = null;
 
+        Usuario var5;
         try {
-            st = this.conn.prepareStatement("SELECT * FROM usuario ORDER BY Email");
+            st = this.conn.prepareStatement("SELECT * FROM usuario WHERE Email = ? AND Password = ?");
+            st.setString(1, email);
+            st.setString(2, senha);
             rs = st.executeQuery();
-            List<Usuario> list = new ArrayList();
-
-            while(rs.next()) {
-                Usuario obj = new Usuario();
-                obj.setId(rs.getInt("Id"));
-                obj.setEmail(rs.getString("Email"));
-                obj.setPassword(rs.getString("Password"));
-                list.add(obj);
+            Usuario obj;
+            if (!rs.next()) {
+                obj = null;
+                return obj;
             }
 
-            List<Usuario> var10 = list;
-            return var10;
-        } catch (SQLException var8) {
-            throw new DbException(var8.getMessage());
+            obj = new Usuario();
+            obj.setId(rs.getInt("Id"));
+            obj.setEmail(rs.getString("Email"));
+            obj.setPassword(rs.getString("Password"));
+            var5 = obj;
+        } catch (SQLException var9) {
+            throw new DbException(var9.getMessage());
         } finally {
             DB.closeResultSet(rs);
         }
+
+        return var5;
     }
 
     public void insert(Usuario obj) {
@@ -103,13 +139,21 @@ public class UsuarioDaoJDBC implements UsuarioDao {
         PreparedStatement st = null;
 
         try {
-            st = this.conn.prepareStatement("UPDATE usuario SET (Email, Password) VALUE (?, ?) WHERE Id = ?");
+            st = this.conn.prepareStatement("UPDATE usuario (Email, Password) VALUES (?, ?)", 1);
             st.setString(1, obj.getEmailUsuario());
             st.setString(2, obj.getPasswordUsuario());
-            st.setInt(3, obj.getIDUsuario());
-            st.executeUpdate();
-        } catch (SQLException var7) {
-            throw new DbException(var7.getMessage());
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected <= 0) {
+                throw new DbException("Unexpected error! No rows affected!");
+            }
+
+            ResultSet rs = st.getGeneratedKeys();
+            if (rs.next()) {
+                int id = rs.getInt(1);
+                obj.setId(id);
+            }
+        } catch (SQLException var9) {
+            throw new DbException(var9.getMessage());
         } finally {
             DB.closeStatement(st);
         }
