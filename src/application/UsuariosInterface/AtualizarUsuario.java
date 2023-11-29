@@ -12,11 +12,10 @@ import java.awt.event.ActionListener;
 public class AtualizarUsuario {
     private JTextField getAtualizaçãoDoUsuarioTextFieldUsuario;
     private JButton voltarButton;
-    private JFormattedTextField ATUALIZAÇÃODEUSUARIOFormattedTextField;
     private JPasswordField passwordField1;
-    private JPasswordField passwordField2;
     private JButton atualizar;
-    private JPasswordField passwordField3;
+    private JTextField textField1;
+    private JTextField eMailTextField;
 
     private UsuarioDao usuarioDAO;
 
@@ -26,7 +25,7 @@ public class AtualizarUsuario {
         setTitle("ATUALIZAR USUARIO");
         setSize(350, 350);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setContentPane(AtualizarUsuario);
+        setContentPane(atualizarUsuario);
         setVisible(true);
         setLocationRelativeTo(null);
         usuarioDAO = new UsuarioDaoJDBC(DB.getConnection());
@@ -34,7 +33,7 @@ public class AtualizarUsuario {
         salvarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                salvarUsuario();
+                AtualizarUsuario();
             }
         });
         voltarButton.addActionListener(new ActionListener() {
@@ -43,17 +42,20 @@ public class AtualizarUsuario {
                 new ListaUsuarios();
                 dispose();
             }
+
         });
     }
 
-    private void salvarUsuario() {
-        String nome = nomeUsuario.getText();
-        String telefone = telefoneUsuario.getText();
+    private void AtualizarUsuario() {
+        String Id = idUsuario.getText();
+        String Email = emailUsuario.getText();
+        String Password = passwordField1.getSelectedText();
 
         Usuario usuario = new Usuario();
-        usuario.setEmail(nome);
-        usuario.setPassword(telefone);
+        usuario.setId(Id);
+        usuario.setEmail(Email);
+        usuario.setPassword(Password);
 
-        usuarioDAO.insert(usuario);
+        usuarioDAO.update(usuario);
     }
 }
