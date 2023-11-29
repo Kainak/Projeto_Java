@@ -20,7 +20,7 @@ public class MainFrame extends JFrame {
     public MainFrame (){
         setContentPane(mainPanel);
         setTitle("Welcome");
-        setSize(450,300);
+        setSize( 700,500);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         btnOK.addActionListener(new ActionListener() {

@@ -37,11 +37,15 @@ public class AdicionarProdutor extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 salvarProdutor();
+                dispose();
             }
         });
         voltarButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) { new ListaProdutores(); }
+            public void actionPerformed(ActionEvent e) {
+                new ListaProdutores();
+                dispose();
+            }
         });
     }
 
@@ -66,5 +70,6 @@ public class AdicionarProdutor extends JFrame {
         produtor.setProducaoPropria(producaoPropria);
 
         produtorDAO.insert(produtor);
+        JOptionPane.showMessageDialog(this, "Produtor cadastrado com sucesso");
     }
 }

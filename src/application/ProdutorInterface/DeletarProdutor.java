@@ -38,6 +38,7 @@ public class DeletarProdutor extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 buscarProdutor();
+                dispose();
             }
         });
 
@@ -45,12 +46,16 @@ public class DeletarProdutor extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 deletarProdutor();
+                dispose();
             }
         });
 
         voltarButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) { new ListaProdutores(); }
+            public void actionPerformed(ActionEvent e) {
+                new ListaProdutores();
+                dispose();
+            }
         });
     }
 

@@ -38,18 +38,26 @@ public class AtualizarProdutor extends JFrame {
 
             buscarButton.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e) { buscarProdutor(); }
+                public void actionPerformed(ActionEvent e) {
+                    buscarProdutor();
+                    dispose();
+                }
             });
 
             atualizarButton.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e) { atualizarProdutor(); }
+                public void actionPerformed(ActionEvent e) {
+                    atualizarProdutor();
+                    dispose();
+                }
             });
 
             voltarButton.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e) { new ListaProdutores(); }
-
+                public void actionPerformed(ActionEvent e) {
+                    new ListaProdutores();
+                    dispose();
+                }
             });
         }
     private void buscarProdutor() {
@@ -100,5 +108,6 @@ public class AtualizarProdutor extends JFrame {
         produtor.setProducaoPropria(producaoPropria);
 
         produtorDAO.update(produtor);
+        JOptionPane.showMessageDialog(this, "Produtor atualizado com sucesso");
     }
 }
