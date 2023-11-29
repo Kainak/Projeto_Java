@@ -40,6 +40,8 @@ public class DeletarFornecedor extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 deletarFornecedor();
+                new ListaFornecedores();
+                dispose();
             }
         });
         voltarButton.addActionListener(new ActionListener() {
@@ -71,6 +73,6 @@ public class DeletarFornecedor extends JFrame {
         fornecedorDAO.deleteById(id);
         NomeFornecedor.setText("");
         TelefoneFornecedor.setText("");
-        JOptionPane.showMessageDialog(this, "Fornecedor deletado com sucesso");
+        JOptionPane.showMessageDialog(null, "Deletado com sucesso", "Deletado", JOptionPane.INFORMATION_MESSAGE);
     }
 }

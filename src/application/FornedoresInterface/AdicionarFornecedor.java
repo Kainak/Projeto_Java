@@ -44,7 +44,10 @@ public class AdicionarFornecedor extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 salvarFornecedor();
+                new ListaFornecedores();
+                dispose();
             }
+
         });
         voltarButton.addActionListener(new ActionListener() {
             @Override
@@ -75,5 +78,7 @@ public class AdicionarFornecedor extends JFrame {
         fornecedor.setCategoriaid(categoriaid);
 
         fornecedorDAO.insert(fornecedor);
+        JOptionPane.showMessageDialog(null, "Salvo com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
     }
 }

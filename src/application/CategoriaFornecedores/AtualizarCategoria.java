@@ -38,7 +38,8 @@ public class AtualizarCategoria extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 atualizarCategoria();
-            }
+                new ListaCategoria();
+                dispose();}
         });
         voltarButton.addActionListener(new ActionListener() {
             @Override
@@ -68,5 +69,6 @@ public class AtualizarCategoria extends JFrame {
         categoria.setNome(nome);
 
         categoriaFornecedoresDao.update(categoria);
+        JOptionPane.showMessageDialog(null, "Atualizado com sucesso", "Atualizado", JOptionPane.INFORMATION_MESSAGE);
     }
 }

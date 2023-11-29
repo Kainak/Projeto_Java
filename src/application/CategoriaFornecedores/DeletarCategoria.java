@@ -38,6 +38,8 @@ public class DeletarCategoria extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 deletarCategoria();
+                new ListaCategoria();
+                dispose();
             }
         });
         voltarButton.addActionListener(new ActionListener() {
@@ -63,5 +65,6 @@ public class DeletarCategoria extends JFrame {
         Integer id = Integer.parseInt(idPesquisarCategoria.getText());
         categoriaFornecedoresDao.deleteById(id);
         NomeCategoria.setText("");
+        JOptionPane.showMessageDialog(null, "Deletado com sucesso", "Deletado", JOptionPane.INFORMATION_MESSAGE);
     }
 }

@@ -43,6 +43,8 @@ public class AtualizarFornecedor extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 atualizarFornecedor();
+                new ListaFornecedores();
+                dispose();
             }
         });
       voltarButton.addActionListener(new ActionListener() {
@@ -79,5 +81,6 @@ public class AtualizarFornecedor extends JFrame {
         fornecedor.setTelefone(telefone);
 
         fornecedorDAO.update(fornecedor);
+        JOptionPane.showMessageDialog(null, "Atualizado com sucesso", "Atualizado", JOptionPane.INFORMATION_MESSAGE);
     }
 }

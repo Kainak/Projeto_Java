@@ -1,5 +1,6 @@
 package application.CategoriaFornecedores;
 
+import application.FornedoresInterface.ListaFornecedores;
 import model.dao.impl.CategoriaFornecedoresDao;
 import model.dao.impl.CategoriaFornecedoresDaoJDBC;
 import model.entities.CategoriaFornecedores;
@@ -30,7 +31,10 @@ public class AdicionarCategoria extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 salvarCategoria();
+                new ListaCategoria();
+                dispose();
             }
+
         });
         voltarButton.addActionListener(new ActionListener() {
             @Override
@@ -47,5 +51,7 @@ public class AdicionarCategoria extends JFrame {
         categoriafornecedores.setNome(nome);
 
         CategoriaFornecedoresDao.insert(categoriafornecedores);
+        JOptionPane.showMessageDialog(null, "Salvo com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
     }
 }
