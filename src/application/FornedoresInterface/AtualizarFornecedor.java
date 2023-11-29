@@ -1,14 +1,18 @@
 package application.FornedoresInterface;
 
-
 import model.dao.impl.FornecedorDao;
 import model.dao.impl.FornecedorDaoJDBC;
+import model.dao.impl.CategoriaFornecedoresDao;
+import model.dao.impl.CategoriaFornecedoresDaoJDBC;
 import model.entities.Fornecedor;
+import model.entities.CategoriaFornecedores;
 import db.DB;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.List;
 
 public class AtualizarFornecedor extends JFrame {
     private JTextField idPesquisarFornecedor;
@@ -18,11 +22,13 @@ public class AtualizarFornecedor extends JFrame {
     private JButton atualizarButton;
     private JButton voltarButton;
     private JPanel atualizarFornecedor;
+    private JComboBox categoriaSeleciona;
 
     private FornecedorDao fornecedorDAO;
+    private CategoriaFornecedoresDao categoriaDAO;
+    private HashMap<String, Integer> categoriaMap;
 
     public AtualizarFornecedor() {
-
         setTitle("Atualizar Fornecedor");
         setSize(350, 350);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -31,11 +37,16 @@ public class AtualizarFornecedor extends JFrame {
         setVisible(true);
 
         fornecedorDAO = new FornecedorDaoJDBC(DB.getConnection());
+        categoriaDAO = new CategoriaFornecedoresDaoJDBC(DB.getConnection());
+        categoriaMap = new HashMap<>();
+
+        preencherCategorias();
 
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buscarFornecedor();
+                int id = Integer.parseInt(idPesquisarFornecedor.getText());
+                buscarFornecedor(id);
             }
         });
 
@@ -47,24 +58,33 @@ public class AtualizarFornecedor extends JFrame {
                 dispose();
             }
         });
-      voltarButton.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent e) {
-               new ListaFornecedores();
 
-           }
-
-       });
+        voltarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ListaFornecedores();
+                dispose();
+            }
+        });
     }
 
-    private void buscarFornecedor() {
-        int id = Integer.parseInt(idPesquisarFornecedor.getText());
+    private void preencherCategorias() {
+        List<CategoriaFornecedores> categorias = categoriaDAO.findAll();
+        for (CategoriaFornecedores categoria : categorias) {
+            categoriaSeleciona.addItem(categoria.getNome());
+            categoriaMap.put(categoria.getNome(), categoria.getId());
+        }
+    }
+
+    private void buscarFornecedor(int id) {
         Fornecedor fornecedor = fornecedorDAO.findById(id);
         if (fornecedor != null) {
             novoNomeFornecedor.setText(fornecedor.getNome());
             novoTelefoneFornecedor.setText(fornecedor.getTelefone());
-            novoNomeFornecedor.setEnabled(true);
-            novoTelefoneFornecedor.setEnabled(true);
+            CategoriaFornecedores categoria = categoriaDAO.findById(fornecedor.getCategoriaid());
+            if (categoria != null) {
+                categoriaSeleciona.setSelectedItem(categoria.getNome());
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Fornecedor não encontrado");
         }
@@ -74,13 +94,16 @@ public class AtualizarFornecedor extends JFrame {
         int id = Integer.parseInt(idPesquisarFornecedor.getText());
         String nome = novoNomeFornecedor.getText();
         String telefone = novoTelefoneFornecedor.getText();
+        String categoriaNome = (String) categoriaSeleciona.getSelectedItem();
+        int categoriaId = categoriaMap.get(categoriaNome);
 
         Fornecedor fornecedor = new Fornecedor();
         fornecedor.setId(id);
         fornecedor.setNome(nome);
         fornecedor.setTelefone(telefone);
+        fornecedor.setCategoriaid(categoriaId);
 
         fornecedorDAO.update(fornecedor);
-        JOptionPane.showMessageDialog(null, "Atualizado com sucesso", "Atualizado", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Atualizado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     }
 }
